@@ -17,18 +17,18 @@ const cacheRoute: CacheRoute = {}
  * @param options - Options for route creation.
  * @returns An array of routes.
  */
-export function createRoutes<Data extends UnknownData = UnknownData>(
+export function createRoutes<Context extends UnknownData = UnknownData>(
   options: Options = {}
-): Route<Data>[] {
+): Route<Context>[] {
   const { dir = '.', cache } = options
   const resolvedDir = dir === process.cwd() ? '.' : dir
 
   if (cache && cacheRoute[dir]) {
-    return (cacheRoute as CacheRoute<Data>)[dir]
+    return (cacheRoute as CacheRoute<Context>)[dir]
   }
 
-  const routes: Route<Data>[] = []
-  visit<Data>({ ...options, root: resolvedDir, dir: resolvedDir }, routes)
+  const routes: Route<Context>[] = []
+  visit<Context>({ ...options, root: resolvedDir, dir: resolvedDir }, routes)
 
   if (cache) {
     cacheRoute[dir] = routes
@@ -43,13 +43,13 @@ export function createRoutes<Data extends UnknownData = UnknownData>(
  * @param routes - An array of routes.
  * @returns A nested array representing the navigation structure.
  */
-export function createNavigation<Data extends UnknownData = UnknownData>(
-  routes: Route<Data>[]
-): NavigationRoute<Data>[] {
-  const notation = createRouteNotation<Data>(routes)
-  const root: { children: NavigationRoute<Data>[] } = { children: [] }
+export function createNavigation<Context extends UnknownData = UnknownData>(
+  routes: Route<Context>[]
+): NavigationRoute<Context>[] {
+  const notation = createRouteNotation<Context>(routes)
+  const root: { children: NavigationRoute<Context>[] } = { children: [] }
 
-  routeNotationToNestedRoute<Data>(notation, root)
+  routeNotationToNestedRoute<Context>(notation, root)
 
   return root.children
 }

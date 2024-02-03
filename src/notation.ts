@@ -2,8 +2,8 @@ import setValue from 'set-value'
 import type { NavigationRoute, Route, UnknownData } from './types.js'
 
 /** @private */
-interface RouteNotation<Data extends UnknownData = UnknownData> {
-  [segment: string]: Route<Data> | RouteNotation<Data>
+interface RouteNotation<Context extends UnknownData = UnknownData> {
+  [segment: string]: Route<Context> | RouteNotation<Context>
 }
 
 /**
@@ -12,10 +12,10 @@ interface RouteNotation<Data extends UnknownData = UnknownData> {
  * @param routes - An array of routes.
  * @returns Object notation representing the routes.
  */
-export function createRouteNotation<Data extends UnknownData = UnknownData>(
-  routes: Route<Data>[]
+export function createRouteNotation<Context extends UnknownData = UnknownData>(
+  routes: Route<Context>[]
 ) {
-  const notation: RouteNotation<Data> = {}
+  const notation: RouteNotation<Context> = {}
 
   for (const route of routes) {
     setValue(notation, route.stem, route, {
@@ -34,8 +34,8 @@ export function createRouteNotation<Data extends UnknownData = UnknownData>(
  * @returns The parent route with nested children.
  */
 export function routeNotationToNestedRoute<
-  Data extends UnknownData = UnknownData
->(notation: RouteNotation<Data>, parent: Partial<NavigationRoute<Data>>) {
+  Context extends UnknownData = UnknownData
+>(notation: RouteNotation<Context>, parent: Partial<NavigationRoute<Context>>) {
   for (const key in notation) {
     const route = notation[key]
     if (route === null || typeof route !== 'object') continue
@@ -44,7 +44,7 @@ export function routeNotationToNestedRoute<
     if (route.id && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...rest } = route
-      parent.children?.push(rest as Route<Data>)
+      parent.children?.push(rest as Route<Context>)
 
       continue
     }
@@ -60,7 +60,7 @@ export function routeNotationToNestedRoute<
       children: []
     })
     routeNotationToNestedRoute(
-      route as RouteNotation<Data>,
+      route as RouteNotation<Context>,
       parent?.children![length - 1]
     )
   }

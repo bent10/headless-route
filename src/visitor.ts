@@ -10,9 +10,9 @@ import { escapeRegExp, isIgnored } from './utils.js'
  * @param options - Options for visiting files and directories.
  * @param routes - An array to store the created routes.
  */
-export function visit<Data extends UnknownData = UnknownData>(
-  options: Omit<Options<Data>, 'cache'> & { root: string; dir: string },
-  routes: Route<Data>[]
+export function visit<Context extends UnknownData = UnknownData>(
+  options: Omit<Options<Context>, 'cache'> & { root: string; dir: string },
+  routes: Route<Context>[]
 ): void {
   const {
     root,
@@ -50,7 +50,7 @@ export function visit<Data extends UnknownData = UnknownData>(
       const segments = stem.split('/')
       const isDynamic = segments.some(seg => seg.startsWith(':'))
 
-      const route: Route<Data> = { id, stem, url, index, isDynamic }
+      const route: Route<Context> = { id, stem, url, index, isDynamic }
 
       let currSegment = ''
       if (isDynamic) {

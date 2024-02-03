@@ -8,7 +8,7 @@ export type Params = { [param: string]: string }
 /**
  * Represents a single route object.
  */
-export interface Route<Data extends UnknownData = UnknownData> {
+export interface Route<Context extends UnknownData = UnknownData> {
   /**
    * The unique identifier for the route.
    */
@@ -42,24 +42,24 @@ export interface Route<Data extends UnknownData = UnknownData> {
   /**
    * Additional data associated with the route.
    */
-  data?: Data
+  context?: Context
 }
 
 /**
  * Represents a navigation route with additional data.
  */
-export interface NavigationRoute<Data extends UnknownData = UnknownData>
-  extends Omit<Route<Data>, 'id'> {
+export interface NavigationRoute<Context extends UnknownData = UnknownData>
+  extends Omit<Route<Context>, 'id'> {
   /**
    * Children routes of the navigation route.
    */
-  children?: NavigationRoute<Data>[]
+  children?: NavigationRoute<Context>[]
 }
 
 /**
  * Options for creating routes.
  */
-export interface Options<Data extends UnknownData = UnknownData> {
+export interface Options<Context extends UnknownData = UnknownData> {
   /**
    * The directory to scan for routes.
    */
@@ -114,7 +114,7 @@ export interface Options<Data extends UnknownData = UnknownData> {
    * })
    * ```
    */
-  handler?: HandlerFn<Data>
+  handler?: HandlerFn<Context>
 }
 
 /**
@@ -125,8 +125,8 @@ export type FilterFn = (file: Dirent) => boolean
 /**
  * A handler function called for each route.
  */
-export type HandlerFn<Data extends UnknownData = UnknownData> = (
-  route: Route<Data>,
+export type HandlerFn<Context extends UnknownData = UnknownData> = (
+  route: Route<Context>,
   root: string
 ) => void
 
@@ -140,6 +140,6 @@ export interface UnknownData {
 /**
  * Represents a cache of routes.
  */
-export type CacheRoute<Data extends UnknownData = UnknownData> = {
-  [key: string]: Route<Data>[]
+export type CacheRoute<Context extends UnknownData = UnknownData> = {
+  [key: string]: Route<Context>[]
 }

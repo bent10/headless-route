@@ -191,7 +191,7 @@ Creates navigation routes based on the specified routes. A navigation route obje
 
 ## Types
 
-### `Route<Data>`
+### `Route<Context>`
 
 Represents a single route in the MPA.
 
@@ -201,9 +201,9 @@ Represents a single route in the MPA.
 - `index`: Indicates whether the route is an index page.
 - `isDynamic`: Indicates whether the route is dynamic.
 - `params`: Optional parameters for the route.
-- `data`: Additional data associated with the route.
+- `context`: Additional data associated with the route.
 
-### `NavigationRoute<Data>`
+### `NavigationRoute<Context>`
 
 Represents a navigation route with additional data.
 

@@ -2,27 +2,27 @@ import { loadFileSync } from 'loadee'
 import type { Route, UnknownData } from '../src/index.js'
 
 /**
- * Loads all `.data.js` files and assign for routes.
+ * Loads all `.context.js` files and assign for routes.
  */
 export function loadDatafiles(route: Route, root: string) {
-  const data: UnknownData = {}
-  const dataExts = ['.json', '.yml', '.yaml', '.cjs']
+  const context: UnknownData = {}
+  const dataExts = ['.data.json', '.data.yml', '.data.yaml', '.data.cjs']
 
   let currSegment = root
 
   route.stem.split('/').forEach(segment => {
-    currSegment += `/${segment}`
+    currSegment += segment === 'index' ? '' : `/${segment}`
 
     dataExts.forEach(ext => {
       try {
         const datafile =
-          segment === 'index' ? `.data${ext}` : `/${segment}.data${ext}`
+          segment === 'index' ? `/index${ext}` : `/${segment + ext}`
         const localData = loadFileSync(currSegment + datafile)
 
-        Object.assign(data, localData)
+        Object.assign(context, localData)
       } catch {}
     })
   })
 
-  route.data = data
+  route.context = context
 }
