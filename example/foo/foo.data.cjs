@@ -1,0 +1,3 @@
+exports.default = {
+  dataFoo: 'data'
+}

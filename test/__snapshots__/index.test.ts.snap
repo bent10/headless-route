@@ -1,0 +1,784 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createNavigation > creates navigation routes from provided routes 1`] = `
+[
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "children": [
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/404",
+        "url": "/example/404",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/_ignores/hidden-page",
+            "url": "/example/_ignores/hidden-page",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/_ignores",
+        "url": "/example/_ignores",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/about",
+        "url": "/example/about",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": true,
+            "params": {
+              ":slug": "/example/blogs/:slug",
+            },
+            "stem": "example/blogs/:slug",
+            "url": "/example/blogs/:slug",
+          },
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/blogs/api",
+            "url": "/example/blogs/api",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/blogs",
+        "url": "/example/blogs",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/contact",
+        "url": "/example/contact",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "index": true,
+                    "isDynamic": false,
+                    "stem": "example/foo/bar/baz/index",
+                    "url": "/example/foo/bar/baz/index",
+                  },
+                ],
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/baz",
+                "url": "/example/foo/bar/baz",
+              },
+              {
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/index",
+                "url": "/example/foo/bar/index",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/bar",
+            "url": "/example/foo/bar",
+          },
+          {
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/index",
+            "url": "/example/foo/index",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/foo",
+        "url": "/example/foo",
+      },
+      {
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/index",
+        "url": "/example/index",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "example",
+    "url": "/example",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;
+
+exports[`createNavigation > creates navigation routes with route handler 1`] = `
+[
+  {
+    "data": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404.html",
+  },
+  {
+    "data": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "url": "/about.html",
+  },
+  {
+    "children": [
+      {
+        "data": {},
+        "index": false,
+        "isDynamic": true,
+        "params": {
+          ":slug": "/blogs/:slug",
+        },
+        "stem": "blogs/:slug",
+        "url": "/blogs/:slug.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "blogs",
+    "url": "/blogs",
+  },
+  {
+    "data": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "url": "/contact.html",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "data": {
+                  "baz": "index",
+                  "dataBar": "data",
+                  "dataBaz": "data",
+                  "dataFoo": "data",
+                },
+                "index": true,
+                "isDynamic": false,
+                "stem": "foo/bar/baz/index",
+                "url": "/foo/bar/baz/index.html",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/baz",
+            "url": "/foo/bar/baz",
+          },
+          {
+            "data": {
+              "dataBar": "data",
+              "dataFoo": "data",
+            },
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/index",
+            "url": "/foo/bar/index.html",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/bar",
+        "url": "/foo/bar",
+      },
+      {
+        "data": {
+          "dataFoo": "data",
+          "foo": "index",
+        },
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/index",
+        "url": "/foo/index.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo",
+    "url": "/foo",
+  },
+  {
+    "data": {},
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index.html",
+  },
+]
+`;
+
+exports[`createRoutes > applies filter function to exclude certain files 1`] = `
+[
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404.html",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "url": "/about.html",
+  },
+  {
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/blogs/:slug",
+    },
+    "stem": "blogs/:slug",
+    "url": "/blogs/:slug.html",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "blogs/api",
+    "url": "/blogs/api.html",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "url": "/contact.html",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/baz/index",
+    "url": "/foo/bar/baz/index.html",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/index",
+    "url": "/foo/bar/index.html",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/index",
+    "url": "/foo/index.html",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index.html",
+  },
+]
+`;
+
+exports[`createRoutes > applies handler function to modify routes 1`] = `
+[
+  {
+    "data": {},
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404.html",
+  },
+  {
+    "data": {},
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "url": "/about.html",
+  },
+  {
+    "data": {},
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/blogs/:slug",
+    },
+    "stem": "blogs/:slug",
+    "url": "/blogs/:slug.html",
+  },
+  {
+    "data": {},
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "url": "/contact.html",
+  },
+  {
+    "data": {
+      "baz": "index",
+      "dataBar": "data",
+      "dataBaz": "data",
+      "dataFoo": "data",
+    },
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/baz/index",
+    "url": "/foo/bar/baz/index.html",
+  },
+  {
+    "data": {
+      "dataBar": "data",
+      "dataFoo": "data",
+    },
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/index",
+    "url": "/foo/bar/index.html",
+  },
+  {
+    "data": {
+      "dataFoo": "data",
+      "foo": "index",
+    },
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/index",
+    "url": "/foo/index.html",
+  },
+  {
+    "data": {},
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index.html",
+  },
+]
+`;
+
+exports[`createRoutes > scans directory for routes with custom directory 1`] = `
+[
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404",
+  },
+  {
+    "id": "example/_ignores/hidden-page.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "_ignores/hidden-page",
+    "url": "/_ignores/hidden-page",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "url": "/about",
+  },
+  {
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/blogs/:slug",
+    },
+    "stem": "blogs/:slug",
+    "url": "/blogs/:slug",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "blogs/api",
+    "url": "/blogs/api",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "url": "/contact",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/baz/index",
+    "url": "/foo/bar/baz/index",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/bar/index",
+    "url": "/foo/bar/index",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo/index",
+    "url": "/foo/index",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index",
+  },
+]
+`;
+
+exports[`createRoutes > scans directory for routes with custom extensions 1`] = `
+[
+  {
+    "id": "src/index.ts",
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index",
+  },
+  {
+    "id": "src/notation.ts",
+    "index": false,
+    "isDynamic": false,
+    "stem": "notation",
+    "url": "/notation",
+  },
+  {
+    "id": "src/types.ts",
+    "index": false,
+    "isDynamic": false,
+    "stem": "types",
+    "url": "/types",
+  },
+  {
+    "id": "src/utils.ts",
+    "index": false,
+    "isDynamic": false,
+    "stem": "utils",
+    "url": "/utils",
+  },
+  {
+    "id": "src/visitor.ts",
+    "index": false,
+    "isDynamic": false,
+    "stem": "visitor",
+    "url": "/visitor",
+  },
+]
+`;
+
+exports[`createRoutes > scans directory for routes with custom urlSuffix 1`] = `
+[
+  {
+    "id": "changelog.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog.html",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404.html",
+  },
+  {
+    "id": "example/_ignores/hidden-page.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/_ignores/hidden-page",
+    "url": "/example/_ignores/hidden-page.html",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/about",
+    "url": "/example/about.html",
+  },
+  {
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/example/blogs/:slug",
+    },
+    "stem": "example/blogs/:slug",
+    "url": "/example/blogs/:slug.html",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/blogs/api",
+    "url": "/example/blogs/api.html",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/contact",
+    "url": "/example/contact.html",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/baz/index",
+    "url": "/example/foo/bar/baz/index.html",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/index",
+    "url": "/example/foo/bar/index.html",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/index",
+    "url": "/example/foo/index.html",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/index",
+    "url": "/example/index.html",
+  },
+  {
+    "id": "readme.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme.html",
+  },
+]
+`;
+
+exports[`createRoutes > scans directory for routes with default options 1`] = `
+[
+  {
+    "id": "changelog.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
+  },
+  {
+    "id": "example/_ignores/hidden-page.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/_ignores/hidden-page",
+    "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/about",
+    "url": "/example/about",
+  },
+  {
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/example/blogs/:slug",
+    },
+    "stem": "example/blogs/:slug",
+    "url": "/example/blogs/:slug",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/blogs/api",
+    "url": "/example/blogs/api",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/contact",
+    "url": "/example/contact",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/baz/index",
+    "url": "/example/foo/bar/baz/index",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/index",
+    "url": "/example/foo/bar/index",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/index",
+    "url": "/example/foo/index",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/index",
+    "url": "/example/index",
+  },
+  {
+    "id": "readme.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;
+
+exports[`createRoutes > scans directory for routes with enabled cache 1`] = `
+[
+  {
+    "id": "changelog.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
+  },
+  {
+    "id": "example/_ignores/hidden-page.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/_ignores/hidden-page",
+    "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/about",
+    "url": "/example/about",
+  },
+  {
+    "id": "example/blogs/:slug.md",
+    "index": false,
+    "isDynamic": true,
+    "params": {
+      ":slug": "/example/blogs/:slug",
+    },
+    "stem": "example/blogs/:slug",
+    "url": "/example/blogs/:slug",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/blogs/api",
+    "url": "/example/blogs/api",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/contact",
+    "url": "/example/contact",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/baz/index",
+    "url": "/example/foo/bar/baz/index",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/index",
+    "url": "/example/foo/bar/index",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/index",
+    "url": "/example/foo/index",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/index",
+    "url": "/example/index",
+  },
+  {
+    "id": "readme.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;

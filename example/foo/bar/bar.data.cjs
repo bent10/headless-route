@@ -1,0 +1,3 @@
+exports.default = {
+  dataBar: 'data'
+}

@@ -1,0 +1,69 @@
+{
+  "name": "headless-route",
+  "description": "A utility to help generate file-based routes for a Multi-Page Application",
+  "version": "0.0.0-development",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Beni Arisandi (https://stilearning.com)",
+  "repository": "https://github.com/bent10/headless-route",
+  "bugs": "https://github.com/bent10/headless-route/issues",
+  "license": "MIT",
+  "keywords": [
+    "route",
+    "routes",
+    "router",
+    "static-route",
+    "file-route",
+    "fs-route"
+  ],
+  "type": "module",
+  "main": "dist/index.cjs",
+  "browser": "dist/index.umd.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "readme.md",
+    "license"
+  ],
+  "scripts": {
+    "start": "vite",
+    "dev": "vite build --watch",
+    "build": "vite build && npm run types",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "types": "tsc -d --emitDeclarationOnly --outDir ./dist",
+    "lint": "tsc --noEmit && eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/normalize-path": "^3.0.2",
+    "@types/set-value": "^4.0.3",
+    "doogu": "3.2.11",
+    "gitignore-reader": "^1.0.0",
+    "ignore": "^5.3.1",
+    "loadee": "^3.0.1",
+    "normalize-path": "^3.0.0",
+    "set-value": "^4.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/doogu/eslint"
+  },
+  "prettier": "doogu/prettier.json",
+  "release": {
+    "extends": "doogu/release.config.js"
+  }
+}
