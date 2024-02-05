@@ -48,12 +48,16 @@ export function visit<Context extends UnknownData = UnknownData>(
         : routePath
 
       const segments = normalizedRoutePath.split('/').map(segment => {
-        if (isDynamicRouteSegment(segment)) {
+        // segment may include file names ordered numerically (e.g., 01-foo, 02-bar, etc.),
+        // used for organizing routes in a specific order.
+        const normalizedSegment = segment.replace(/^\d+[\-\_]/, '')
+
+        if (isDynamicRouteSegment(normalizedSegment)) {
           isDynamic = true
-          return `:${segment.slice(1)}`
+          return `:${normalizedSegment.slice(1)}`
         }
 
-        return segment
+        return normalizedSegment
       })
 
       const stem = segments.join('/')
