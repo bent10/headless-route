@@ -3,21 +3,6 @@
 import { createNavigation, createRoutes } from '../src/index.js'
 import { loadDatafiles } from './utils.js'
 
-it('readme', () => {
-  const routes = createRoutes({
-    dir: 'example',
-    extensions: ['.html', '.md'],
-    urlSuffix: '.html',
-    filter(file) {
-      // ignore files starting with '_'
-      return !file.name.startsWith('_') && !file.name.startsWith('foo')
-    }
-  })
-
-  console.log(JSON.stringify(createNavigation(routes), null, 2))
-  // console.log(routes)
-})
-
 describe('createRoutes', () => {
   it('scans directory for routes with default options', () => {
     const routes = createRoutes({ dir: process.cwd() })
@@ -99,6 +84,28 @@ describe('createNavigation', () => {
       handler: loadDatafiles
     })
     const navigationRoutes = createNavigation(routes)
+
+    expect(navigationRoutes).toMatchSnapshot()
+  })
+
+  test('creates navigation routes with navigation handler', () => {
+    const routes = createRoutes({
+      dir: 'example',
+      urlSuffix: '.html',
+      extensions: ['.md', '.html'],
+      filter(file) {
+        // ignore files starting with '_'
+        return !file.name.startsWith('_')
+      }
+    })
+    const navigationRoutes = createNavigation(routes, route => {
+      const segments = route.stem.split('/')
+      const lastSegment = String(segments.pop())
+
+      Object.assign(route, {
+        text: lastSegment[0].toUpperCase() + lastSegment.slice(1).toLowerCase()
+      })
+    })
 
     expect(navigationRoutes).toMatchSnapshot()
   })

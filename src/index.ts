@@ -1,6 +1,7 @@
 import { createRouteNotation, routeNotationToNestedRoute } from './notation.js'
 import type {
   CacheRoute,
+  NavigationHandlerFn,
   NavigationRoute,
   Options,
   Route,
@@ -44,12 +45,17 @@ export function createRoutes<Context extends UnknownData = UnknownData>(
  * @returns A nested array representing the navigation structure.
  */
 export function createNavigation<Context extends UnknownData = UnknownData>(
-  routes: Route<Context>[]
+  routes: Route<Context>[],
+  handler?: NavigationHandlerFn
 ): NavigationRoute<Context>[] {
   const notation = createRouteNotation<Context>(routes)
   const root: { children: NavigationRoute<Context>[] } = { children: [] }
 
-  routeNotationToNestedRoute<Context>(notation, root)
+  routeNotationToNestedRoute<Context>(
+    notation,
+    root as NavigationRoute<Context>,
+    handler
+  )
 
   return root.children
 }

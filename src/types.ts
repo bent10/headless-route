@@ -131,15 +131,23 @@ export type HandlerFn<Context extends UnknownData = UnknownData> = (
 ) => void
 
 /**
- * Represents additional data associated with routes.
+ * A navigation route handler function.
  */
-export interface UnknownData {
-  [key: string]: unknown
-}
+export type NavigationHandlerFn<Context extends UnknownData = UnknownData> = (
+  route: NavigationRoute<Context> | Route<Context>,
+  parrent: NavigationRoute<Context>
+) => void
 
 /**
  * Represents a cache of routes.
  */
 export type CacheRoute<Context extends UnknownData = UnknownData> = {
   [key: string]: Route<Context>[]
+}
+
+/**
+ * Represents additional data associated with routes.
+ */
+export interface UnknownData {
+  [key: string]: unknown
 }

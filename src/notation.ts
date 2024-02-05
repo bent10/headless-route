@@ -1,5 +1,10 @@
 import setValue from 'set-value'
-import type { NavigationRoute, Route, UnknownData } from './types.js'
+import type {
+  NavigationHandlerFn,
+  NavigationRoute,
+  Route,
+  UnknownData
+} from './types.js'
 
 /** @private */
 interface RouteNotation<Context extends UnknownData = UnknownData> {
@@ -35,7 +40,11 @@ export function createRouteNotation<Context extends UnknownData = UnknownData>(
  */
 export function routeNotationToNestedRoute<
   Context extends UnknownData = UnknownData
->(notation: RouteNotation<Context>, parent: Partial<NavigationRoute<Context>>) {
+>(
+  notation: RouteNotation<Context>,
+  parent: NavigationRoute<Context>,
+  handler?: NavigationHandlerFn
+) {
   for (const key in notation) {
     const route = notation[key]
     if (route === null || typeof route !== 'object') continue
@@ -44,6 +53,7 @@ export function routeNotationToNestedRoute<
     if (route.id && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...rest } = route
+      handler?.(rest as NavigationRoute<Context>, parent)
       parent.children?.push(rest as Route<Context>)
 
       continue
@@ -52,16 +62,22 @@ export function routeNotationToNestedRoute<
     // if a notation route
     // push initial "layout route" for children
     const stem = parent.stem ? `${parent.stem}/${key}` : key
-    const length = parent.children!.push({
+    const newRoute: NavigationRoute<Context> = {
       stem,
       url: `/${stem}`,
       index: true,
       isDynamic: key.startsWith(':'),
       children: []
-    })
+    }
+    const length = parent.children!.push(newRoute)
+    const nextparent = parent?.children![length - 1]
+
+    handler?.(newRoute, nextparent)
+
     routeNotationToNestedRoute(
       route as RouteNotation<Context>,
-      parent?.children![length - 1]
+      nextparent,
+      handler
     )
   }
 

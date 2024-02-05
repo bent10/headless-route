@@ -128,6 +128,106 @@ exports[`createNavigation > creates navigation routes from provided routes 1`] =
 ]
 `;
 
+exports[`createNavigation > creates navigation routes with navigation handler 1`] = `
+[
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "text": "404",
+    "url": "/404.html",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "text": "About",
+    "url": "/about.html",
+  },
+  {
+    "children": [
+      {
+        "index": false,
+        "isDynamic": true,
+        "params": {
+          ":slug": "/blogs/:slug",
+        },
+        "stem": "blogs/:slug",
+        "text": ":slug",
+        "url": "/blogs/:slug.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "blogs",
+    "text": "Blogs",
+    "url": "/blogs",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "text": "Contact",
+    "url": "/contact.html",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "index": true,
+                "isDynamic": false,
+                "stem": "foo/bar/baz/index",
+                "text": "Index",
+                "url": "/foo/bar/baz/index.html",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/baz",
+            "text": "Baz",
+            "url": "/foo/bar/baz",
+          },
+          {
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/index",
+            "text": "Index",
+            "url": "/foo/bar/index.html",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/bar",
+        "text": "Bar",
+        "url": "/foo/bar",
+      },
+      {
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/index",
+        "text": "Index",
+        "url": "/foo/index.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo",
+    "text": "Foo",
+    "url": "/foo",
+  },
+  {
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "text": "Index",
+    "url": "/index.html",
+  },
+]
+`;
+
 exports[`createNavigation > creates navigation routes with route handler 1`] = `
 [
   {
