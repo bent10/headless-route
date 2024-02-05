@@ -156,6 +156,54 @@ console.log(navigationRoutes)
 
 </details>
 
+> [!NOTE]
+> In navigation routes, a file named `index` serves as a Layout routes. It participates in UI nesting, but it does not add any segments to the URL.
+
+## Best practices
+
+When structuring your project, adhere to the following best practices:
+
+- Files or directories starting with an underscore character (`_`) should be ignored:
+
+  ```js
+  const routes = createRoutes({
+    filter(file) {
+      // ignore files starting with '_'
+      return !file.name.startsWith('_')
+    }
+  })
+  ```
+
+- File or directory names starting with a dollar character (`$`) or colon (`:`) will be treated as a “dynamic segment”.
+
+  Dynamic segments should be formatted as follows:
+
+  - 🚫 `/users-:id`
+  - ✅ `/users/:id or /users/$id`
+  - 🚫 `/posts/:category--:id`
+  - ✅ `/posts/:category/:id`
+
+- Follow a consistent pattern in CRUD operations. Instead of naming files like `foo/$id.edit.tsx`, use `foo/$id/edit.tsx`:
+
+  🚫 Bad:
+
+  - `pages/users/$id.create.tsx`
+  - `pages/users/$id.edit.tsx`
+  - `pages/users/$id.delete.tsx`
+  - `pages/users/$id.view.tsx`
+
+  ✅ Good:
+
+  - `pages/users/$id/create.tsx`
+  - `pages/users/$id/edit.tsx`
+  - `pages/users/$id/delete.tsx`
+  - `pages/users/$id/view.tsx`
+  - `pages/users/api.ts`
+  - `pages/users/index.tsx`
+
+> [!CAUTION]
+> Note that the colon character (`:`) is invalid for file names on Windows.
+
 ## API
 
 ### `createRoutes(options: Options): Route[]`
