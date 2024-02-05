@@ -27,3 +27,15 @@ export function isIgnored(id: string) {
 export function escapeRegExp(str: string) {
   return str.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&')
 }
+
+/**
+ * Checks if a segment of a route path is a dynamic segment. Dynamic
+ * segments are typically indicated by a leading colon (`:`) or dollar sign
+ * (`$`).
+ *
+ * @param segment The segment of the route path to check.
+ * @returns `true` if the segment is a dynamic segment, `false` otherwise.
+ */
+export function isDynamicRouteSegment(segment: string) {
+  return segment.startsWith(':') || segment.startsWith('$')
+}

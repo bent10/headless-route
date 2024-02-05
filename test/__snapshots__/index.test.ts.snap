@@ -352,7 +352,7 @@ exports[`createRoutes > applies filter function to exclude certain files 1`] = `
     "url": "/about.html",
   },
   {
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {
@@ -426,7 +426,7 @@ exports[`createRoutes > applies handler function to modify routes 1`] = `
   },
   {
     "context": {},
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {
@@ -513,7 +513,7 @@ exports[`createRoutes > scans directory for routes with custom directory 1`] = `
     "url": "/about",
   },
   {
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {
@@ -638,7 +638,7 @@ exports[`createRoutes > scans directory for routes with custom urlSuffix 1`] = `
     "url": "/example/about.html",
   },
   {
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {
@@ -730,7 +730,7 @@ exports[`createRoutes > scans directory for routes with default options 1`] = `
     "url": "/example/about",
   },
   {
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {
@@ -822,7 +822,7 @@ exports[`createRoutes > scans directory for routes with enabled cache 1`] = `
     "url": "/example/about",
   },
   {
-    "id": "example/blogs/:slug.md",
+    "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
     "params": {

@@ -2,7 +2,7 @@ import { readdirSync, type Dirent } from 'node:fs'
 import { extname, join } from 'node:path'
 import normalizePath from 'normalize-path'
 import type { Options, Params, Route, UnknownData } from './types.js'
-import { escapeRegExp, isIgnored } from './utils.js'
+import { escapeRegExp, isDynamicRouteSegment, isIgnored } from './utils.js'
 
 /**
  * Visits each file and directory to create routes.
@@ -38,17 +38,27 @@ export function visit<Context extends UnknownData = UnknownData>(
       if (!extensions.includes(ext) && !extensions.includes('*')) continue
       if (isIgnored(id)) continue
 
+      let isDynamic = false
       const routePath = id
         .replace(new RegExp(`^${escapeRegExp(root)}`), '')
         .replace(new RegExp(`${escapeRegExp(ext)}$`), '')
 
-      const stem = routePath.startsWith('/')
+      const normalizedRoutePath = routePath.startsWith('/')
         ? routePath.substring(1)
         : routePath
+
+      const segments = normalizedRoutePath.split('/').map(segment => {
+        if (isDynamicRouteSegment(segment)) {
+          isDynamic = true
+          return `:${segment.slice(1)}`
+        }
+
+        return segment
+      })
+
+      const stem = segments.join('/')
       const url = `/${stem + urlSuffix}`
       const index = url.endsWith('/index' + urlSuffix)
-      const segments = stem.split('/')
-      const isDynamic = segments.some(seg => seg.startsWith(':'))
 
       const route: Route<Context> = { id, stem, url, index, isDynamic }
 
@@ -57,7 +67,7 @@ export function visit<Context extends UnknownData = UnknownData>(
         route.params = segments.reduce((params, segment) => {
           currSegment += `/${segment}`
 
-          if (segment.startsWith(':')) {
+          if (isDynamicRouteSegment(segment)) {
             params[segment] = currSegment
           }
 
