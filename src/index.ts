@@ -35,7 +35,12 @@ export function createRoutes<Context extends UnknownData = UnknownData>(
     cacheRoute[dir] = routes
   }
 
-  return routes
+  return routes.sort((a, b) => {
+    if (a.id < b.id) return -1
+    if (a.id > b.id) return 1
+
+    return 0
+  })
 }
 
 /**

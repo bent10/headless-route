@@ -33,15 +33,15 @@ export function visit<Context extends UnknownData = UnknownData>(
     if (file.isDirectory()) {
       visit({ ...options, dir: id }, routes)
     } else {
-      const ext = extname(id)
+      const fileExtension = extname(id)
 
-      if (!extensions.includes(ext) && !extensions.includes('*')) continue
-      if (isIgnored(id)) continue
+      if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
+        continue
 
       let isDynamic = false
       const routePath = id
         .replace(new RegExp(`^${escapeRegExp(root)}`), '')
-        .replace(new RegExp(`${escapeRegExp(ext)}$`), '')
+        .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
 
       const normalizedRoutePath = routePath.startsWith('/')
         ? routePath.substring(1)
@@ -81,4 +81,14 @@ export function visit<Context extends UnknownData = UnknownData>(
       routes.push(route)
     }
   }
+}
+
+/**
+ * Checks if the provided file extension is allowed based on the allowed extensions array.
+ * @param extensions - An array of allowed file extensions.
+ * @param fileExtension - The file extension to check.
+ * @returns True if the file extension is allowed, otherwise false.
+ */
+function isValidExtension(extensions: string[], fileExtension: string) {
+  return extensions.includes(fileExtension) || extensions.includes('*')
 }
