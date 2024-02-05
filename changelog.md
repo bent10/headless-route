@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/bent10/headless-route/compare/v1.2.0...v1.2.1) (2024-02-05)
+
+
+### Bug Fixes
+
+* ensure consistent order of routes ([53909b6](https://github.com/bent10/headless-route/commit/53909b6c947ff9a769ba69d7acbce1597e343f12))
+
 # [1.2.0](https://github.com/bent10/headless-route/compare/v1.1.0...v1.2.0) (2024-02-05)
 
 
