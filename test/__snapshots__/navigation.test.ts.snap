@@ -1,0 +1,464 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`creates navigation routes from provided routes 1`] = `
+[
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "children": [
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/404",
+        "url": "/example/404",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/_ignores/hidden-page",
+            "url": "/example/_ignores/hidden-page",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/_ignores",
+        "url": "/example/_ignores",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/about",
+        "url": "/example/about",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": true,
+            "params": {
+              ":slug": "/example/blogs/:slug",
+            },
+            "stem": "example/blogs/:slug",
+            "url": "/example/blogs/:slug",
+          },
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/blogs/api",
+            "url": "/example/blogs/api",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/blogs",
+        "url": "/example/blogs",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/contact",
+        "url": "/example/contact",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "index": true,
+                    "isDynamic": false,
+                    "stem": "example/foo/bar/baz/index",
+                    "url": "/example/foo/bar/baz/index",
+                  },
+                ],
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/baz",
+                "url": "/example/foo/bar/baz",
+              },
+              {
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/index",
+                "url": "/example/foo/bar/index",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/bar",
+            "url": "/example/foo/bar",
+          },
+          {
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/index",
+            "url": "/example/foo/index",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/foo",
+        "url": "/example/foo",
+      },
+      {
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/index",
+        "url": "/example/index",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "example",
+    "url": "/example",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;
+
+exports[`creates navigation routes from provided routes asynchronously 1`] = `
+[
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "children": [
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/404",
+        "url": "/example/404",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/_ignores/hidden-page",
+            "url": "/example/_ignores/hidden-page",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/_ignores",
+        "url": "/example/_ignores",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/about",
+        "url": "/example/about",
+      },
+      {
+        "children": [
+          {
+            "index": false,
+            "isDynamic": true,
+            "params": {
+              ":slug": "/example/blogs/:slug",
+            },
+            "stem": "example/blogs/:slug",
+            "url": "/example/blogs/:slug",
+          },
+          {
+            "index": false,
+            "isDynamic": false,
+            "stem": "example/blogs/api",
+            "url": "/example/blogs/api",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/blogs",
+        "url": "/example/blogs",
+      },
+      {
+        "index": false,
+        "isDynamic": false,
+        "stem": "example/contact",
+        "url": "/example/contact",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "index": true,
+                    "isDynamic": false,
+                    "stem": "example/foo/bar/baz/index",
+                    "url": "/example/foo/bar/baz/index",
+                  },
+                ],
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/baz",
+                "url": "/example/foo/bar/baz",
+              },
+              {
+                "index": true,
+                "isDynamic": false,
+                "stem": "example/foo/bar/index",
+                "url": "/example/foo/bar/index",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/bar",
+            "url": "/example/foo/bar",
+          },
+          {
+            "index": true,
+            "isDynamic": false,
+            "stem": "example/foo/index",
+            "url": "/example/foo/index",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/foo",
+        "url": "/example/foo",
+      },
+      {
+        "index": true,
+        "isDynamic": false,
+        "stem": "example/index",
+        "url": "/example/index",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "example",
+    "url": "/example",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;
+
+exports[`creates navigation routes with navigation handler 1`] = `
+[
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "text": "404",
+    "url": "/404.html",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "text": "About",
+    "url": "/about.html",
+  },
+  {
+    "children": [
+      {
+        "index": false,
+        "isDynamic": true,
+        "params": {
+          ":slug": "/blogs/:slug",
+        },
+        "stem": "blogs/:slug",
+        "text": ":slug",
+        "url": "/blogs/:slug.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "blogs",
+    "text": "Blogs",
+    "url": "/blogs",
+  },
+  {
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "text": "Contact",
+    "url": "/contact.html",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "index": true,
+                "isDynamic": false,
+                "stem": "foo/bar/baz/index",
+                "text": "Index",
+                "url": "/foo/bar/baz/index.html",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/baz",
+            "text": "Baz",
+            "url": "/foo/bar/baz",
+          },
+          {
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/index",
+            "text": "Index",
+            "url": "/foo/bar/index.html",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/bar",
+        "text": "Bar",
+        "url": "/foo/bar",
+      },
+      {
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/index",
+        "text": "Index",
+        "url": "/foo/index.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo",
+    "text": "Foo",
+    "url": "/foo",
+  },
+  {
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "text": "Index",
+    "url": "/index.html",
+  },
+]
+`;
+
+exports[`creates navigation routes with route handler 1`] = `
+[
+  {
+    "context": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404.html",
+  },
+  {
+    "context": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "about",
+    "url": "/about.html",
+  },
+  {
+    "children": [
+      {
+        "context": {},
+        "index": false,
+        "isDynamic": true,
+        "params": {
+          ":slug": "/blogs/:slug",
+        },
+        "stem": "blogs/:slug",
+        "url": "/blogs/:slug.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "blogs",
+    "url": "/blogs",
+  },
+  {
+    "context": {},
+    "index": false,
+    "isDynamic": false,
+    "stem": "contact",
+    "url": "/contact.html",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "context": {
+                  "baz": "index",
+                  "dataBar": "data",
+                  "dataBaz": "data",
+                  "dataFoo": "data",
+                },
+                "index": true,
+                "isDynamic": false,
+                "stem": "foo/bar/baz/index",
+                "url": "/foo/bar/baz/index.html",
+              },
+            ],
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/baz",
+            "url": "/foo/bar/baz",
+          },
+          {
+            "context": {
+              "dataBar": "data",
+              "dataFoo": "data",
+            },
+            "index": true,
+            "isDynamic": false,
+            "stem": "foo/bar/index",
+            "url": "/foo/bar/index.html",
+          },
+        ],
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/bar",
+        "url": "/foo/bar",
+      },
+      {
+        "context": {
+          "dataFoo": "data",
+          "foo": "index",
+        },
+        "index": true,
+        "isDynamic": false,
+        "stem": "foo/index",
+        "url": "/foo/index.html",
+      },
+    ],
+    "index": true,
+    "isDynamic": false,
+    "stem": "foo",
+    "url": "/foo",
+  },
+  {
+    "context": {},
+    "index": true,
+    "isDynamic": false,
+    "stem": "index",
+    "url": "/index.html",
+  },
+]
+`;

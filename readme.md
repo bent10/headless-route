@@ -37,16 +37,27 @@ Create routes based on a directory structure:
 
 ```js
 import { createRoutes, createNavigation } from 'headless-route'
+// Or for CommonJS:
+// const { createRoutes, createNavigation } = require('headless-route')
 
-const routes = createRoutes({
+const routes = await createRoutes({
   dir: 'pages',
   extensions: ['.html', '.md'],
   urlSuffix: '.html',
   filter(file) {
     // ignore files starting with '_'
     return !file.name.startsWith('_')
+  },
+  async handler(route) {
+    if (route.isDynamic) {
+      const apifile = dirname(route.id) + '/api.js'
+
+      route.context = await import(apifile)
+    }
   }
 })
+// for sync api:
+// const routes = createRoutesSync({...})
 
 console.log(routes)
 ```
@@ -76,7 +87,7 @@ console.log(routes)
     url: '/blogs/:slug.html',
     index: false,
     isDynamic: true,
-    params: { ':slug': '/blogs/:slug' }
+    params: { slug: '/blogs/:slug' }
   },
   {
     id: 'pages/contact.md',
@@ -100,7 +111,9 @@ console.log(routes)
 Create navigation routes from routes:
 
 ```js
-const navigationRoutes = createNavigation(routes)
+const navigationRoutes = await createNavigation(routes)
+// for sync api:
+// const navigationRoutes = createNavigationSync(routes)
 
 console.log(navigationRoutes)
 ```
@@ -134,7 +147,7 @@ console.log(navigationRoutes)
         index: false,
         isDynamic: true,
         params: {
-          ':slug': '/blogs/:slug'
+          slug: '/blogs/:slug'
         }
       }
     ]
@@ -166,7 +179,7 @@ When structuring your project, adhere to the following best practices:
 - Files or directories starting with an underscore character (`_`) should be ignored:
 
   ```js
-  const routes = createRoutes({
+  const routes = await createRoutes({
     filter(file) {
       // ignore files starting with '_'
       return !file.name.startsWith('_')
@@ -179,7 +192,7 @@ When structuring your project, adhere to the following best practices:
   Dynamic segments should be formatted as follows:
 
   - 🚫 `/users-:id`
-  - ✅ `/users/:id or /users/$id`
+  - ✅ `/users/:id` or `/users/$id`
   - 🚫 `/posts/:category--:id`
   - ✅ `/posts/:category/:id`
 
@@ -206,7 +219,7 @@ When structuring your project, adhere to the following best practices:
 
 ## API
 
-### `createRoutes(options: Options): Route[]`
+### `createRoutes(options: Options): Promise<Route[]>`
 
 Creates routes based on the specified options.
 
@@ -220,9 +233,9 @@ Creates routes based on the specified options.
   - `handler`: A handler function called for each route.
 
     ```js
-    createRoutes({
+    await createRoutes({
       dir: 'pages',
-      handler(route) {
+      async handler(route) {
         if (route.id.endsWith('.js')) {
           // attach a lazy route for JavaScript files
           route.lazy = import(route.id)
@@ -231,11 +244,19 @@ Creates routes based on the specified options.
     })
     ```
 
-### `createNavigation(routes: Route[]): NavigationRoute[]`
+### `createRoutesSync(options: OptionsSync): Route[]`
+
+Creates routes based on the specified options synchronously.
+
+### `createNavigation(routes: Route[]): Promise<NavigationRoute[]>`
 
 Creates navigation routes based on the specified routes. A navigation route object has the same structure as a route object, excluding the `id` property. It may also contain `children` property, representing the children routes of the navigation route.
 
 - `routes`: An array of routes.
+
+### `createNavigationSync(routes: Route[]): NavigationRoute[]`
+
+Creates navigation routes based on the specified routes synchronously.
 
 ## Types
 
@@ -248,40 +269,15 @@ Represents a single route in the MPA.
 - `url`: The URL of the route.
 - `index`: Indicates whether the route is an index page.
 - `isDynamic`: Indicates whether the route is dynamic.
-- `params`: Optional parameters for the route.
 - `context`: Additional data associated with the route.
+- `params?`: Optional parameters for the route.
 
 ### `NavigationRoute<Context>`
 
 Represents a navigation route with additional data.
 
 - Inherits all properties from `Route`, except for `id`.
-
-### `Options`
-
-Represents options for creating routes.
-
-- `dir`: The directory to scan for routes.
-- `urlSuffix`: The suffix to append to route URLs.
-- `cache`: Indicates whether to cache routes.
-- `filter`: A filter function for filtering Dirent objects.
-- `handler`: A handler function called for each route.
-
-### `Params`
-
-Represents a map of parameters with string keys and string values.
-
-### `UnknownData`
-
-Represents additional data associated with routes.
-
-### `FilterFn`
-
-Represents a filter function for filtering Dirent objects.
-
-### `HandlerFn`
-
-Represents a handler function called for each route.
+- `children?`: Representing the children routes of the navigation route.
 
 ## Contributing
 

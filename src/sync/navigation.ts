@@ -1,49 +1,47 @@
-import setValue from 'set-value'
 import type {
-  NavigationHandlerFn,
+  NavigationHandlerFnSync,
   NavigationRoute,
   Route,
+  RouteNotation,
   UnknownData
-} from './types.js'
-
-/** @private */
-interface RouteNotation<Context extends UnknownData = UnknownData> {
-  [segment: string]: Route<Context> | RouteNotation<Context>
-}
+} from '../types.js'
+import { createRouteNotation } from '../utils.js'
 
 /**
- * Creates nested object notation of routes.
+ * Creates navigation routes from a list of routes synchronously.
  *
  * @param routes - An array of routes.
- * @returns Object notation representing the routes.
+ * @returns A nested array representing the navigation routes.
  */
-export function createRouteNotation<Context extends UnknownData = UnknownData>(
-  routes: Route<Context>[]
-) {
-  const notation: RouteNotation<Context> = {}
+export function createNavigationSync<Context extends UnknownData = UnknownData>(
+  routes: Route<Context>[],
+  handler?: NavigationHandlerFnSync
+): NavigationRoute<Context>[] {
+  const notation = createRouteNotation<Context>(routes)
+  const root: { children: NavigationRoute<Context>[] } = { children: [] }
 
-  for (const route of routes) {
-    setValue(notation, route.stem, route, {
-      separator: '/'
-    })
-  }
+  routeNotationToNavigationRoute<Context>(
+    notation,
+    root as NavigationRoute<Context>,
+    handler
+  )
 
-  return notation
+  return root.children
 }
 
 /**
- * Converts route notation to a nested route structure.
+ * Converts route notation to a navigation routes structure.
  *
  * @param notation - Object notation representing the routes.
  * @param parent - The parent route in the nested structure.
- * @returns The parent route with nested children.
+ * @returns The navigation route with nested children.
  */
-export function routeNotationToNestedRoute<
+function routeNotationToNavigationRoute<
   Context extends UnknownData = UnknownData
 >(
   notation: RouteNotation<Context>,
   parent: NavigationRoute<Context>,
-  handler?: NavigationHandlerFn
+  handler?: NavigationHandlerFnSync
 ) {
   for (const key in notation) {
     const route = notation[key]
@@ -74,7 +72,7 @@ export function routeNotationToNestedRoute<
 
     handler?.(newRoute, nextparent)
 
-    routeNotationToNestedRoute(
+    routeNotationToNavigationRoute(
       route as RouteNotation<Context>,
       nextparent,
       handler
