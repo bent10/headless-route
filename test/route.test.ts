@@ -185,28 +185,28 @@ it('should find an optional route from routes object based on the request URL', 
 it('should find a splats route from routes object based on the request URL', () => {
   const config = { root: 'pages', urlSuffix: '' }
   const routes = [
-    // splats or "catchall" or "star" segments (zero or more params)
+    // splat or "catchall" or "star" segments (zero or more params)
     createRoute('pages/files/*.md', config),
-    // named splats segments (zero or more params)
+    // named splat segments (zero or more params)
     createRoute('pages/foo/:ids*.md', config),
-    // required splats segments (one or more params)
+    // required splat segments (one or more params)
     createRoute('pages/bar/:ids+.md', config)
   ]
 
-  // match splats segments
+  // match splat segments
   expect(findRoute('/files', routes)).toEqual(routes[0])
   expect(findRoute('/files/a', routes)).toEqual(routes[0])
   expect(findRoute('/files/a/b', routes)).toEqual(routes[0])
   expect(findRoute('/files/a/b/123', routes)).toEqual(routes[0])
 
-  const splatsRoute = findRoute('/files/a/b/123', routes)
-  if (splatsRoute?.isDynamic) {
-    const params = splatsRoute.matchParams('/files/a/b/123')
+  const splatRoute = findRoute('/files/a/b/123', routes)
+  if (splatRoute?.isDynamic) {
+    const params = splatRoute.matchParams('/files/a/b/123')
 
     expect(params).toEqual({ splats: ['a', 'b', '123'] })
   }
 
-  // match named splats segments
+  // match named splat segments
   expect(findRoute('/foo', routes)).toEqual(routes[1])
   expect(findRoute('/foo/a', routes)).toEqual(routes[1])
   expect(findRoute('/foo/a/b', routes)).toEqual(routes[1])
@@ -219,7 +219,7 @@ it('should find a splats route from routes object based on the request URL', () 
     expect(params).toEqual({ ids: ['a', 'b', '123'] })
   }
 
-  // match required splats segments
+  // match required splat segments
   expect(findRoute('/bar', routes)).toBeUndefined()
   expect(findRoute('/bar/a', routes)).toEqual(routes[2])
   expect(findRoute('/bar/a/b', routes)).toEqual(routes[2])

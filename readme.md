@@ -284,12 +284,15 @@ const routes = await createRoutes({
 
 ▸ Dynamic segments should adhere to the following formatting guidelines:
 
-- 🚫 Avoid: `/users-:id` (partial paths should be avoided)
-- ✅ Prefer: `/users/:id` or `/users/$id`
-- ✅ Acceptable: `/users/:id?` or `/users/[id]` (for optional dynamic segments)
-- 🚫 Avoid: `/posts/:categories--:id` (partial paths should be avoided)
-- ✅ Prefer: `/posts/:categories/:id` or `/posts/$categories/$id`
-- ✅ Acceptable: `/posts/[lang]/categories` (for optional dynamic segments)
+- 🚫 Avoid: `/users-:id.md` (partial paths should be avoided)
+- ✅ Prefer: `/users/:id.md` or `/users/$id.md`
+- ✅ Acceptable: `/users/:id?.md` or `/users/[id].md` (for optional segments)
+- 🚫 Avoid: `/posts/:categories--:id.md` (partial paths should be avoided)
+- ✅ Prefer: `/posts/:categories/:id.md` or `/posts/$categories/$id.md`
+- ✅ Acceptable: `/posts/[lang]/categories.md` (for optional segments)
+- ✅ Acceptable: `/files/*.md` (for splat segments)
+- ✅ Acceptable: `/foo/:bar*.md` (for named splat segments)
+- ✅ Acceptable: `/foo/:bar+.md` (for required splat segments)
 
 ▸ Follow a consistent pattern in CRUD operations. Instead of naming files like `foo/$id.edit.tsx`, use `foo/$id/edit.tsx`:
 
