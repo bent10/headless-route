@@ -1,11 +1,30 @@
+import { extname } from 'node:path'
 import { readGitignore } from 'gitignore-reader'
 import _ignore, { type Ignore, type Options as IgOptions } from 'ignore'
+import { compile, match, pathToRegexp } from 'path-to-regexp'
 import setValue from 'set-value'
-import type { Params, Route, RouteNotation, UnknownData } from './types.js'
+import {
+  isDynamicRouteSegment,
+  normalizeSegment,
+  parseRoutePath
+} from './segments.js'
+import type { NavigationRoute, Route, RouteNotation } from './types.js'
 
 type IgnoreFn = (options?: IgOptions) => Ignore
 
 const ignore = (_ignore as unknown as IgnoreFn)().add(readGitignore())
+
+export function sortRoutes<Context extends object = object>(
+  routes: Route<Context>[]
+) {
+  return routes.sort((a, b) => {
+    if (a.id < b.id) return -1
+    /* c8 ignore next 3 */
+    if (a.id > b.id) return 1
+
+    return 0
+  })
+}
 
 /**
  * Checks if a given path is ignored according to the rules specified in the
@@ -31,7 +50,9 @@ export function escapeRegExp(str: string) {
 }
 
 /**
- * Checks if the provided file extension is allowed based on the allowed extensions array.
+ * Checks if the provided file extension is allowed based on the allowed
+ * extensions array.
+ *
  * @param extensions - An array of allowed file extensions.
  * @param fileExtension - The file extension to check.
  * @returns True if the file extension is allowed, otherwise false.
@@ -40,60 +61,62 @@ export function isValidExtension(extensions: string[], fileExtension: string) {
   return extensions.includes(fileExtension) || extensions.includes('*')
 }
 
-export function createDynamicRouteParams(segments: string[]) {
-  let pattern = ''
-  return segments.reduce((params, segment) => {
-    const paramId = getParamId(segment)
-    const partial = isPartialDynamicRouteSegment(segment)
+/**
+ * Creates a route object based on the provided id and options.
+ *
+ * @param id - The ID of the route.
+ * @param options - Configuration options for creating the route.
+ * @returns A Route object representing the created route.
+ */
+export function createRoute<Context extends object = object>(
+  id: string,
+  options: { root: string; urlSuffix: string }
+): Route<Context> {
+  const { root, urlSuffix } = options
 
-    pattern += `/${segment.replace(paramId, '*')}`
+  const fileExtension = extname(id)
+  const routePath = id
+    .replace(new RegExp(`^${escapeRegExp(root)}`), '')
+    .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
 
-    params[paramId] = { pattern, partial }
+  const segments = parseRoutePath(routePath)
+  const stem = segments.join('/')
+  const url = `/${stem + urlSuffix}`
+  const index = url.endsWith('/index' + urlSuffix)
 
-    return params
-  }, {} as Params)
+  const route: Route<Context> = { id, stem, url, index, isDynamic: false }
+
+  const isDynamic = segments.some(isDynamicRouteSegment)
+
+  if (isDynamic) {
+    applyDynamicRouteProps<Context>(route)
+  }
+
+  return route
 }
 
 /**
- * Checks if a segment of a route path is a dynamic segment. Dynamic
- * segments are typically indicated by a leading colon (`:`) or dollar sign
- * (`$`).
+ * Creates a parent route object based on the provided segment and parent
+ * route.
  *
- * @param segment The segment of the route path to check.
- * @returns `true` if the segment is a dynamic segment, `false` otherwise.
+ * @param segment - The segment of the route.
+ * @param parent - The parent route object.
+ * @returns A NavigationRoute object representing the created parent route.
  */
-export function isDynamicRouteSegment(segment: string) {
-  return (
-    isNonPartialDynamicRouteSegment(segment) ||
-    isPartialDynamicRouteSegment(segment)
-  )
-}
+export function createParentRoute<Context extends object = object>(
+  segment: string,
+  parent: NavigationRoute<Context>
+): NavigationRoute<Context> {
+  const stem = parent.stem ? `${parent.stem}/${segment}` : segment
 
-function isNonPartialDynamicRouteSegment(segment: string) {
-  return (
-    (segment.startsWith(':') || segment.startsWith('$')) &&
-    !segment.endsWith('?')
-  )
-}
-
-function isPartialDynamicRouteSegment(segment: string) {
-  return (
-    (segment.startsWith('[') && segment.endsWith(']')) ||
-    ((segment.startsWith(':') || segment.startsWith('$')) &&
-      segment.endsWith('?'))
-  )
-}
-
-function getParamId(segment: string) {
-  if (isNonPartialDynamicRouteSegment(segment)) {
-    return segment.slice(1)
+  // initial "layout route" for children
+  return {
+    stem,
+    url: `/${stem}`,
+    index: true,
+    isDynamic: isDynamicRouteSegment(segment),
+    children: []
   }
-
-  if (isPartialDynamicRouteSegment(segment)) {
-    return segment.slice(1, -1)
-  }
-
-  return segment
 }
 
 /**
@@ -102,7 +125,7 @@ function getParamId(segment: string) {
  * @param routes - An array of routes.
  * @returns Object notation representing the routes.
  */
-export function createRouteNotation<Context extends UnknownData = UnknownData>(
+export function createRouteNotation<Context extends object = object>(
   routes: Route<Context>[]
 ) {
   const notation: RouteNotation<Context> = {}
@@ -114,4 +137,57 @@ export function createRouteNotation<Context extends UnknownData = UnknownData>(
   }
 
   return notation
+}
+
+/**
+ * Finds a route that matches the provided request URL.
+ *
+ * @param requestUrl - The URL of the request.
+ * @param routes - An array of routes to search.
+ * @returns The matching route, if found, otherwise undefined.
+ */
+export function findRoute<Context extends object = object>(
+  requestUrl: string,
+  routes: Route<Context>[]
+) {
+  return routes.find(route => {
+    if (route.isDynamic) {
+      return route.isMatch?.(requestUrl)
+    }
+
+    const regexp = pathToRegexp(route.url)
+    return regexp.test(normalizeSegment(requestUrl))
+  })
+}
+
+/**
+ * Applies dynamic route properties to the provided route object.
+ *
+ * @param route - The route object to which dynamic properties are applied.
+ */
+export function applyDynamicRouteProps<Context extends object = object>(
+  route: Route<Context>
+) {
+  const regexp = pathToRegexp(route.url)
+  const fnMatch = match(route.url, {
+    encode: encodeURI
+  })
+  const fnCompile = compile(route.url, {
+    encode: encodeURIComponent
+  })
+
+  Object.assign(route, { isDynamic: true })
+  // non-enumerable props for dynamic route
+  Object.defineProperties(route, {
+    isMatch: {
+      value: (input: string) => regexp.test(normalizeSegment(input))
+    },
+    matchParams: {
+      value: (input: string) => {
+        const result = fnMatch(input)
+        return result ? { ...result.params } : false
+      }
+    },
+    generatePath: { value: (data: object) => fnCompile(data) }
+  })
 }

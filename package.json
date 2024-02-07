@@ -52,6 +52,7 @@
     "ignore": "5.3.1",
     "loadee": "3.0.1",
     "normalize-path": "3.0.0",
+    "path-to-regexp": "^6.2.1",
     "set-value": "4.1.0"
   },
   "config": {

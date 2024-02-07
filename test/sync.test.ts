@@ -1,6 +1,6 @@
 /// <reference types="vitest/globals" />
 
-import { createNavigation, createRoutesSync } from '../src/index.js'
+import { createNavigationSync, createRoutesSync } from '../src/index.js'
 import { loadDatafiles } from './utils.js'
 
 describe('createRoutesSync', () => {
@@ -62,12 +62,16 @@ describe('createRoutesSync', () => {
 
     expect(routes).toMatchSnapshot()
   })
+
+  it('throws missing dir', async () => {
+    expect(() => createRoutesSync({ dir: 'missing' })).toThrowError()
+  })
 })
 
-describe.skip('createNavigationSync', () => {
+describe('createNavigationSync', () => {
   it('creates navigation routes from provided routes', () => {
     const routes = createRoutesSync()
-    const navigationRoutes = createNavigation(routes)
+    const navigationRoutes = createNavigationSync(routes)
 
     expect(navigationRoutes).toMatchSnapshot()
   })
@@ -83,7 +87,7 @@ describe.skip('createNavigationSync', () => {
       },
       handler: loadDatafiles
     })
-    const navigationRoutes = createNavigation(routes)
+    const navigationRoutes = createNavigationSync(routes)
 
     expect(navigationRoutes).toMatchSnapshot()
   })
@@ -98,7 +102,7 @@ describe.skip('createNavigationSync', () => {
         return !file.name.startsWith('_')
       }
     })
-    const navigationRoutes = createNavigation(routes, route => {
+    const navigationRoutes = createNavigationSync(routes, route => {
       const segments = route.stem.split('/')
       const lastSegment = String(segments.pop())
 

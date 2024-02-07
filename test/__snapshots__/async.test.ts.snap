@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createNavigationSync > creates navigation routes from provided routes 1`] = `
+exports[`createNavigation > creates navigation routes from provided routes 1`] = `
 [
   {
     "index": false,
@@ -125,7 +125,7 @@ exports[`createNavigationSync > creates navigation routes from provided routes 1
 ]
 `;
 
-exports[`createNavigationSync > creates navigation routes with navigation handler 1`] = `
+exports[`createNavigation > creates navigation routes with navigation handler 1`] = `
 [
   {
     "index": false,
@@ -222,7 +222,7 @@ exports[`createNavigationSync > creates navigation routes with navigation handle
 ]
 `;
 
-exports[`createNavigationSync > creates navigation routes with route handler 1`] = `
+exports[`createNavigation > creates navigation routes with route handler 1`] = `
 [
   {
     "context": {},
@@ -326,7 +326,7 @@ exports[`createNavigationSync > creates navigation routes with route handler 1`]
 ]
 `;
 
-exports[`createRoutesSync > applies filter function to exclude certain files 1`] = `
+exports[`createRoutes > applies filter function to exclude certain files 1`] = `
 [
   {
     "id": "example/404.md",
@@ -348,13 +348,6 @@ exports[`createRoutesSync > applies filter function to exclude certain files 1`]
     "isDynamic": true,
     "stem": "blogs/:slug",
     "url": "/blogs/:slug.html",
-  },
-  {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "blogs/api",
-    "url": "/blogs/api.html",
   },
   {
     "id": "example/contact.md",
@@ -394,7 +387,7 @@ exports[`createRoutesSync > applies filter function to exclude certain files 1`]
 ]
 `;
 
-exports[`createRoutesSync > applies handler function to modify routes 1`] = `
+exports[`createRoutes > applies handler function to modify routes 1`] = `
 [
   {
     "context": {},
@@ -413,7 +406,16 @@ exports[`createRoutesSync > applies handler function to modify routes 1`] = `
     "url": "/about.html",
   },
   {
-    "context": {},
+    "context": {
+      "bar": {
+        "content": "Embark on a journey of discovery as we unravel the mysteries surrounding Bar. From its enigmatic history to its practical applications, this blog post will leave you enlightened.",
+        "title": "Unraveling the Mysteries of Bar",
+      },
+      "foo": {
+        "content": "Delve into the captivating universe of Foo in this engaging blog post. Explore its origins, evolution, and impact on modern society.",
+        "title": "The Fascinating World of Foo",
+      },
+    },
     "id": "example/blogs/$slug.md",
     "index": false,
     "isDynamic": true,
@@ -474,7 +476,7 @@ exports[`createRoutesSync > applies handler function to modify routes 1`] = `
 ]
 `;
 
-exports[`createRoutesSync > scans directory for routes with custom directory 1`] = `
+exports[`createRoutes > scans directory for routes with custom directory 1`] = `
 [
   {
     "id": "example/404.md",
@@ -549,7 +551,7 @@ exports[`createRoutesSync > scans directory for routes with custom directory 1`]
 ]
 `;
 
-exports[`createRoutesSync > scans directory for routes with custom extensions 1`] = `
+exports[`createRoutes > scans directory for routes with custom extensions 1`] = `
 [
   {
     "id": "src/async/navigation.ts",
@@ -624,7 +626,7 @@ exports[`createRoutesSync > scans directory for routes with custom extensions 1`
 ]
 `;
 
-exports[`createRoutesSync > scans directory for routes with custom urlSuffix 1`] = `
+exports[`createRoutes > scans directory for routes with custom urlSuffix 1`] = `
 [
   {
     "id": "changelog.md",
@@ -713,7 +715,7 @@ exports[`createRoutesSync > scans directory for routes with custom urlSuffix 1`]
 ]
 `;
 
-exports[`createRoutesSync > scans directory for routes with default options 1`] = `
+exports[`createRoutes > scans directory for routes with default options 1`] = `
 [
   {
     "id": "changelog.md",
@@ -802,7 +804,7 @@ exports[`createRoutesSync > scans directory for routes with default options 1`] 
 ]
 `;
 
-exports[`createRoutesSync > scans directory for routes with enabled cache 1`] = `
+exports[`createRoutes > scans directory for routes with enabled cache 1`] = `
 [
   {
     "id": "changelog.md",

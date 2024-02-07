@@ -2,18 +2,18 @@ import type {
   NavigationHandlerFnSync,
   NavigationRoute,
   Route,
-  RouteNotation,
-  UnknownData
+  RouteNotation
 } from '../types.js'
-import { createRouteNotation } from '../utils.js'
+import { createParentRoute, createRouteNotation } from '../utils.js'
 
 /**
  * Creates navigation routes from a list of routes synchronously.
  *
  * @param routes - An array of routes.
+ * @param handler - A navigation route handler function.
  * @returns A nested array representing the navigation routes.
  */
-export function createNavigationSync<Context extends UnknownData = UnknownData>(
+export function createNavigationSync<Context extends object = object>(
   routes: Route<Context>[],
   handler?: NavigationHandlerFnSync
 ): NavigationRoute<Context>[] {
@@ -36,37 +36,29 @@ export function createNavigationSync<Context extends UnknownData = UnknownData>(
  * @param parent - The parent route in the nested structure.
  * @returns The navigation route with nested children.
  */
-function routeNotationToNavigationRoute<
-  Context extends UnknownData = UnknownData
->(
+function routeNotationToNavigationRoute<Context extends object = object>(
   notation: RouteNotation<Context>,
   parent: NavigationRoute<Context>,
   handler?: NavigationHandlerFnSync
 ) {
-  for (const key in notation) {
-    const route = notation[key]
+  for (const segment in notation) {
+    const route = notation[segment]
+    /* c8 ignore next */
     if (route === null || typeof route !== 'object') continue
 
     // if a Route
     if (route.id && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id, ...rest } = route
-      handler?.(rest as NavigationRoute<Context>, parent)
-      parent.children?.push(rest as Route<Context>)
+      const { id, ...navRoute } = route
+      handler?.(navRoute as NavigationRoute<Context>, parent)
+      parent.children?.push(navRoute as Route<Context>)
 
       continue
     }
 
     // if a notation route
+    const newRoute = createParentRoute(segment, parent)
     // push initial "layout route" for children
-    const stem = parent.stem ? `${parent.stem}/${key}` : key
-    const newRoute: NavigationRoute<Context> = {
-      stem,
-      url: `/${stem}`,
-      index: true,
-      isDynamic: key.startsWith(':'),
-      children: []
-    }
     const length = parent.children!.push(newRoute)
     const nextparent = parent?.children![length - 1]
 

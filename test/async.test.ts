@@ -3,7 +3,7 @@
 import { createNavigation, createRoutes } from '../src/index.js'
 import { loadDatafiles } from './utils.js'
 
-describe.skip('createRoutes', () => {
+describe('createRoutes', () => {
   it('scans directory for routes with default options', async () => {
     const routes = await createRoutes({ dir: process.cwd() })
 
@@ -39,9 +39,10 @@ describe.skip('createRoutes', () => {
   it('applies filter function to exclude certain files', async () => {
     const routes = await createRoutes({
       dir: 'example',
+      extensions: ['.md', '.cjs'],
       urlSuffix: '.html',
       filter(file) {
-        return !file.name.startsWith('_')
+        return !file.name.startsWith('_') && !file.name.endsWith('.data.cjs')
       }
     })
 
@@ -57,17 +58,31 @@ describe.skip('createRoutes', () => {
         // ignore files starting with '_'
         return !file.name.startsWith('_')
       },
-      handler: loadDatafiles
+      async handler(route, root) {
+        loadDatafiles(route, root)
+
+        if (route.isDynamic) {
+          const dirname = route.id.split('/').slice(0, -1).join('/')
+          const apifile = `./${dirname}/api.js`
+          const { fetchApi } = await import(apifile)
+
+          route.context = await fetchApi()
+        }
+      }
     })
 
     expect(routes).toMatchSnapshot()
   })
+
+  it('throws missing dir', async () => {
+    expect(() => createRoutes({ dir: 'missing' })).rejects.toThrowError()
+  })
 })
 
-describe.skip('createNavigation', () => {
+describe('createNavigation', () => {
   it('creates navigation routes from provided routes', async () => {
     const routes = await createRoutes()
-    const navigationRoutes = createNavigation(routes)
+    const navigationRoutes = await createNavigation(routes)
 
     expect(navigationRoutes).toMatchSnapshot()
   })
@@ -83,7 +98,7 @@ describe.skip('createNavigation', () => {
       },
       handler: loadDatafiles
     })
-    const navigationRoutes = createNavigation(routes)
+    const navigationRoutes = await createNavigation(routes)
 
     expect(navigationRoutes).toMatchSnapshot()
   })
@@ -98,7 +113,7 @@ describe.skip('createNavigation', () => {
         return !file.name.startsWith('_')
       }
     })
-    const navigationRoutes = createNavigation(routes, route => {
+    const navigationRoutes = await createNavigation(routes, route => {
       const segments = route.stem.split('/')
       const lastSegment = String(segments.pop())
 

@@ -1,11 +1,11 @@
 import { loadFileSync } from 'loadee'
-import type { Route, UnknownData } from '../src/index.js'
+import type { Route } from '../src/index.js'
 
 /**
  * Loads all `.context.js` files and assign for routes.
  */
 export function loadDatafiles(route: Route, root: string) {
-  const context: UnknownData = {}
+  const context: object = {}
   const dataExts = ['.data.json', '.data.yml', '.data.yaml', '.data.cjs']
 
   let currSegment = root

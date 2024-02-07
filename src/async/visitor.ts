@@ -2,14 +2,14 @@ import type { Dirent } from 'node:fs'
 import { readdir } from 'node:fs/promises'
 import { extname, join } from 'node:path'
 import normalizePath from 'normalize-path'
-import type { Options, Route, UnknownData } from '../types.js'
+import type { Options, Route } from '../types.js'
 import {
-  createDynamicRouteParams,
+  applyDynamicRouteProps,
   escapeRegExp,
-  isDynamicRouteSegment,
   isIgnored,
   isValidExtension
 } from '../utils.js'
+import { isDynamicRouteSegment, parseRoutePath } from '../segments.js'
 
 /**
  * Visits each file and directory to create routes.
@@ -17,7 +17,7 @@ import {
  * @param options - Options for visiting files and directories.
  * @param routes - An array to store the created routes.
  */
-export async function visit<Context extends UnknownData = UnknownData>(
+export async function visit<Context extends object = object>(
   options: Omit<Options<Context>, 'cache'> & { root: string; dir: string },
   routes: Route<Context>[]
 ): Promise<void> {
@@ -51,25 +51,24 @@ export async function visit<Context extends UnknownData = UnknownData>(
             .replace(new RegExp(`^${escapeRegExp(root)}`), '')
             .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
 
-          const normalizedRoutePath = routePath.startsWith('/')
-            ? routePath.slice(1)
-            : routePath
+          const segments = parseRoutePath(routePath)
 
-          const segments = normalizedRoutePath.split('/').map(segment => {
-            // segment may include file names ordered numerically (e.g., 01-foo, 02-bar, etc.),
-            // used for organizing routes in a specific order.
-            return segment.replace(/^\d+[\-\_]/, '')
-          })
-
-          const isDynamic = segments.some(isDynamicRouteSegment)
           const stem = segments.join('/')
           const url = `/${stem + urlSuffix}`
           const index = url.endsWith('/index' + urlSuffix)
 
-          const route: Route<Context> = { id, stem, url, index, isDynamic }
+          const route: Route<Context> = {
+            id,
+            stem,
+            url,
+            index,
+            isDynamic: false
+          }
+
+          const isDynamic = segments.some(isDynamicRouteSegment)
 
           if (isDynamic) {
-            route.params = createDynamicRouteParams(segments)
+            applyDynamicRouteProps<Context>(route)
           }
 
           // call handler fn, useful to expand each route
@@ -80,7 +79,6 @@ export async function visit<Context extends UnknownData = UnknownData>(
       })
     )
   } catch (error) {
-    // Handle any errors here
-    console.error('Error while visiting directory:', error)
+    throw error
   }
 }
