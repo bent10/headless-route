@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/bent10/headless-route/compare/v1.2.1...v2.0.0) (2024-02-07)
+
+
+### Features
+
+* add `isMatch`, `matchParams`, and `generatePath` props to dynamic route ([6ce0009](https://github.com/bent10/headless-route/commit/6ce0009d96022e6d18b478e003c09c968d7ad96f))
+* provides async api ([1a45d9a](https://github.com/bent10/headless-route/commit/1a45d9ae0b4d964866db39c9ce51d51e57925cd5))
+* segments may now include file names ordered numerically ([372498f](https://github.com/bent10/headless-route/commit/372498f6a7d6404dc7feff2a868c2b0580890b4d))
+
+
+### BREAKING CHANGES
+
+* The `params` prop has been removed from the dynamic route component. Code relying
+on this prop will need to be updated to use the new props: `isMatch`, `matchParams`, and
+`generatePath`.
+
 ## [1.2.1](https://github.com/bent10/headless-route/compare/v1.2.0...v1.2.1) (2024-02-05)
 
 
