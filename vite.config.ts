@@ -9,7 +9,7 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['node:fs', 'node:path']
+      external: ['node:fs', 'node:fs/promises', 'node:path']
     }
   },
   test: {
