@@ -47,7 +47,7 @@ function routeNotationToNavigationRoute<Context extends object = object>(
     if (route === null || typeof route !== 'object') continue
 
     // if a Route
-    if (route.id && route.url) {
+    if (route.stem && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...navRoute } = route
       handler?.(navRoute as NavigationRoute<Context>, parent)
