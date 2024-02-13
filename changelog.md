@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/bent10/headless-route/compare/v2.0.0...v2.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* tweaks non-layout route notation filter ([560b774](https://github.com/bent10/headless-route/commit/560b7741589a13bb3f3264033184a9d36f04ced2))
+
 # [2.0.0](https://github.com/bent10/headless-route/compare/v1.2.1...v2.0.0) (2024-02-07)
 
 
