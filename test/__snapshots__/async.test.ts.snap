@@ -476,6 +476,95 @@ exports[`createRoutes > applies handler function to modify routes 1`] = `
 ]
 `;
 
+exports[`createRoutes > scans directory for routes with custom absolute directory 1`] = `
+[
+  {
+    "id": "changelog.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "changelog",
+    "url": "/changelog",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
+  },
+  {
+    "id": "example/_ignores/hidden-page.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/_ignores/hidden-page",
+    "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/about.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/about",
+    "url": "/example/about",
+  },
+  {
+    "id": "example/blogs/$slug.md",
+    "index": false,
+    "isDynamic": true,
+    "stem": "example/blogs/:slug",
+    "url": "/example/blogs/:slug",
+  },
+  {
+    "id": "example/blogs/api.js",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/blogs/api",
+    "url": "/example/blogs/api",
+  },
+  {
+    "id": "example/contact.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/contact",
+    "url": "/example/contact",
+  },
+  {
+    "id": "example/foo/bar/baz/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/baz/index",
+    "url": "/example/foo/bar/baz/index",
+  },
+  {
+    "id": "example/foo/bar/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/bar/index",
+    "url": "/example/foo/bar/index",
+  },
+  {
+    "id": "example/foo/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/foo/index",
+    "url": "/example/foo/index",
+  },
+  {
+    "id": "example/index.md",
+    "index": true,
+    "isDynamic": false,
+    "stem": "example/index",
+    "url": "/example/index",
+  },
+  {
+    "id": "readme.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "readme",
+    "url": "/readme",
+  },
+]
+`;
+
 exports[`createRoutes > scans directory for routes with custom directory 1`] = `
 [
   {

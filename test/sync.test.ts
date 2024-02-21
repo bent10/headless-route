@@ -5,13 +5,19 @@ import { loadDatafiles } from './utils.js'
 
 describe('createRoutesSync', () => {
   it('scans directory for routes with default options', () => {
-    const routes = createRoutesSync({ dir: process.cwd() })
+    const routes = createRoutesSync()
 
     expect(routes).toMatchSnapshot()
   })
 
   it('scans directory for routes with custom directory', () => {
     const routes = createRoutesSync({ dir: 'example' })
+
+    expect(routes).toMatchSnapshot()
+  })
+
+  it('scans directory for routes with custom absolute directory', () => {
+    const routes = createRoutesSync({ dir: process.cwd() })
 
     expect(routes).toMatchSnapshot()
   })

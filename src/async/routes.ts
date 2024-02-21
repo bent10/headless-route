@@ -15,7 +15,10 @@ export async function createRoutes<Context extends object = object>(
   options: Options<Context> = {}
 ): Promise<Route<Context>[]> {
   const { dir = '.', cache } = options
-  const resolvedDir = dir === process.cwd() ? '.' : dir
+  const cwd = process.cwd()
+  const resolvedDir = dir.startsWith(cwd)
+    ? dir.replace(cwd, '').replace(/^[\\\/]+/, '') || '.'
+    : dir
 
   if (cache && cacheRoute[dir]) {
     return (cacheRoute as unknown as CacheRoute<Context>)[dir]

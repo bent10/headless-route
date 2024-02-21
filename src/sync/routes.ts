@@ -15,7 +15,10 @@ export function createRoutesSync<Context extends object = object>(
   options: OptionsSync<Context> = {}
 ): Route<Context>[] {
   const { dir = '.', cache } = options
-  const resolvedDir = dir === process.cwd() ? '.' : dir
+  const cwd = process.cwd()
+  const resolvedDir = dir.startsWith(cwd)
+    ? dir.replace(cwd, '').replace(/^[\\\/]+/, '') || '.'
+    : dir
 
   if (cache && cacheRouteSync[dir]) {
     return (cacheRouteSync as unknown as CacheRoute<Context>)[dir]
