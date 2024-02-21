@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/bent10/headless-route/compare/v2.0.1...v2.1.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* omit `'.js'` from default value of `extensions` option ([c739f99](https://github.com/bent10/headless-route/commit/c739f99052b839e31da2e7d04b31532b7a8ebe3d))
+
+
+### Features
+
+* resolves absolute `dir` ([df6cfa6](https://github.com/bent10/headless-route/commit/df6cfa6dd60db7041bd81e9ad0b2d37cf7cc165f))
+
 ## [2.0.1](https://github.com/bent10/headless-route/compare/v2.0.0...v2.0.1) (2024-02-13)
 
 
