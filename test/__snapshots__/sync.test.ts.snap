@@ -44,12 +44,6 @@ exports[`createNavigationSync > creates navigation routes from provided routes 1
             "stem": "example/blogs/:slug",
             "url": "/example/blogs/:slug",
           },
-          {
-            "index": false,
-            "isDynamic": false,
-            "stem": "example/blogs/api",
-            "url": "/example/blogs/api",
-          },
         ],
         "index": true,
         "isDynamic": false,
@@ -350,13 +344,6 @@ exports[`createRoutesSync > applies filter function to exclude certain files 1`]
     "url": "/blogs/:slug.html",
   },
   {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "blogs/api",
-    "url": "/blogs/api.html",
-  },
-  {
     "id": "example/contact.md",
     "index": false,
     "isDynamic": false,
@@ -512,13 +499,6 @@ exports[`createRoutesSync > scans directory for routes with custom absolute dire
     "url": "/example/blogs/:slug",
   },
   {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/blogs/api",
-    "url": "/example/blogs/api",
-  },
-  {
     "id": "example/contact.md",
     "index": false,
     "isDynamic": false,
@@ -592,13 +572,6 @@ exports[`createRoutesSync > scans directory for routes with custom directory 1`]
     "isDynamic": true,
     "stem": "blogs/:slug",
     "url": "/blogs/:slug",
-  },
-  {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "blogs/api",
-    "url": "/blogs/api",
   },
   {
     "id": "example/contact.md",
@@ -751,13 +724,6 @@ exports[`createRoutesSync > scans directory for routes with custom urlSuffix 1`]
     "url": "/example/blogs/:slug.html",
   },
   {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/blogs/api",
-    "url": "/example/blogs/api.html",
-  },
-  {
     "id": "example/contact.md",
     "index": false,
     "isDynamic": false,
@@ -840,13 +806,6 @@ exports[`createRoutesSync > scans directory for routes with default options 1`] 
     "url": "/example/blogs/:slug",
   },
   {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/blogs/api",
-    "url": "/example/blogs/api",
-  },
-  {
     "id": "example/contact.md",
     "index": false,
     "isDynamic": false,
@@ -927,13 +886,6 @@ exports[`createRoutesSync > scans directory for routes with enabled cache 1`] = 
     "isDynamic": true,
     "stem": "example/blogs/:slug",
     "url": "/example/blogs/:slug",
-  },
-  {
-    "id": "example/blogs/api.js",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/blogs/api",
-    "url": "/example/blogs/api",
   },
   {
     "id": "example/contact.md",

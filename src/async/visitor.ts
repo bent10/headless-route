@@ -25,7 +25,7 @@ export async function visit<Context extends object = object>(
     root,
     dir,
     urlSuffix = '',
-    extensions = ['.html', '.md', '.js'],
+    extensions = ['.html', '.md'],
     filter = () => true,
     handler
   } = options

@@ -14,7 +14,7 @@ export interface Options<Context extends object = object> {
   /**
    * The file extensions to include when scanning for routes.
    *
-   * @default ['.html', '.md', '.js']
+   * @default ['.html', '.md']
    */
   extensions?: string[]
 

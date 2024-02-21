@@ -319,7 +319,7 @@ const routes = await createRoutes({
 Creates routes based on the specified `options`:
 
 - `dir`: The directory to scan for routes. Defaults to the current working directory (`process.cwd()`).
-- `extensions`: The file extensions to include when scanning for routes. Defaults (`['.html', '.md', '.js']`).
+- `extensions`: The file extensions to include when scanning for routes. Defaults (`['.html', '.md']`).
 - `urlSuffix`: The suffix to append to route URLs. Defaults to an empty string.
 - `cache`: Indicates whether to cache routes. Defaults to `false`.
 - `filter`: A filter function for filtering [`Dirent`](https://nodejs.org/api/fs.html#class-fsdirent) objects. It automatically disregards files and directories listed in the project's `.gitignore` file, ensuring they are consistently excluded from consideration.
