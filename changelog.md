@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/bent10/headless-route/compare/v2.1.0...v2.2.0) (2024-02-24)
+
+
+### Features
+
+* **revert:** removed generic parameter (`Context`) for better clarity and simplicity ([57b4328](https://github.com/bent10/headless-route/commit/57b432821a304f1e949526747beff33a49fedbd7))
+
 # [2.1.0](https://github.com/bent10/headless-route/compare/v2.0.1...v2.1.0) (2024-02-21)
 
 
