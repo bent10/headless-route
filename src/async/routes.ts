@@ -11,9 +11,7 @@ const cacheRoute: CacheRoute = {}
  * @param options - Options for route creation.
  * @returns An array of routes.
  */
-export async function createRoutes<Context extends object = object>(
-  options: Options<Context> = {}
-): Promise<Route<Context>[]> {
+export async function createRoutes(options: Options = {}): Promise<Route[]> {
   const { dir = '.', cache } = options
   const cwd = process.cwd()
   const resolvedDir = dir.startsWith(cwd)
@@ -21,14 +19,11 @@ export async function createRoutes<Context extends object = object>(
     : dir
 
   if (cache && cacheRoute[dir]) {
-    return (cacheRoute as unknown as CacheRoute<Context>)[dir]
+    return (cacheRoute as unknown as CacheRoute)[dir]
   }
 
-  const routes: Route<Context>[] = []
-  await visit<Context>(
-    { ...options, root: resolvedDir, dir: resolvedDir },
-    routes
-  )
+  const routes: Route[] = []
+  await visit({ ...options, root: resolvedDir, dir: resolvedDir }, routes)
 
   if (cache) {
     Object.assign(cacheRoute, { [dir]: routes })

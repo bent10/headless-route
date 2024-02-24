@@ -13,16 +13,16 @@ import { createParentRoute, createRouteNotation } from '../utils.js'
  * @param handler - A navigation route handler function.
  * @returns A nested array representing the navigation routes.
  */
-export async function createNavigation<Context extends object = object>(
-  routes: Route<Context>[],
+export async function createNavigation(
+  routes: Route[],
   handler?: NavigationHandlerFn
-): Promise<NavigationRoute<Context>[]> {
-  const notation = createRouteNotation<Context>(routes)
-  const root: { children: NavigationRoute<Context>[] } = { children: [] }
+): Promise<NavigationRoute[]> {
+  const notation = createRouteNotation(routes)
+  const root: { children: NavigationRoute[] } = { children: [] }
 
-  await routeNotationToNavigationRoute<Context>(
+  await routeNotationToNavigationRoute(
     notation,
-    root as NavigationRoute<Context>,
+    root as NavigationRoute,
     handler
   )
 
@@ -36,9 +36,9 @@ export async function createNavigation<Context extends object = object>(
  * @param parent - The parent route in the nested structure.
  * @returns The navigation route with nested children.
  */
-async function routeNotationToNavigationRoute<Context extends object = object>(
-  notation: RouteNotation<Context>,
-  parent: NavigationRoute<Context>,
+async function routeNotationToNavigationRoute(
+  notation: RouteNotation,
+  parent: NavigationRoute,
   handler?: NavigationHandlerFn
 ) {
   for (const segment in notation) {
@@ -50,8 +50,8 @@ async function routeNotationToNavigationRoute<Context extends object = object>(
     if (route.stem && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...navRoute } = route
-      await handler?.(navRoute as NavigationRoute<Context>, parent)
-      parent.children?.push(navRoute as Route<Context>)
+      await handler?.(navRoute as NavigationRoute, parent)
+      parent.children?.push(navRoute as Route)
 
       continue
     }
@@ -65,7 +65,7 @@ async function routeNotationToNavigationRoute<Context extends object = object>(
     await handler?.(newRoute, nextparent)
 
     await routeNotationToNavigationRoute(
-      route as RouteNotation<Context>,
+      route as RouteNotation,
       nextparent,
       handler
     )

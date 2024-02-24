@@ -2,10 +2,8 @@ import type { Dirent } from 'node:fs'
 
 /**
  * Options for creating routes.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface Options<Context extends object = object> {
+export interface Options {
   /**
    * The directory to scan for routes.
    */
@@ -62,16 +60,13 @@ export interface Options<Context extends object = object> {
    * })
    * ```
    */
-  handler?: HandlerFn<Context>
+  handler?: HandlerFn
 }
 
 /**
  * Options for creating sync routes.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface OptionsSync<Context extends object = object>
-  extends Omit<Options, 'filter' | 'handler'> {
+export interface OptionsSync extends Omit<Options, 'filter' | 'handler'> {
   /**
    * A filter function for filtering [`Dirent`](https://nodejs.org/api/fs.html#class-fsdirent) objects. It automatically disregards files
    * and directories listed in the project's `.gitignore` file, ensuring they are
@@ -106,7 +101,7 @@ export interface OptionsSync<Context extends object = object>
    * })
    * ```
    */
-  handler?: HandlerFnSync<Context>
+  handler?: HandlerFnSync
 }
 
 /**
@@ -121,30 +116,18 @@ export type FilterFnSync = (file: Dirent) => boolean
 
 /**
  * A handler function called for each route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type HandlerFn<Context extends object = object> = (
-  route: Route<Context>,
-  root: string
-) => void | Promise<void>
+export type HandlerFn = (route: Route, root: string) => void | Promise<void>
 
 /**
  * A handler function called for each route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type HandlerFnSync<Context extends object = object> = (
-  route: Route<Context>,
-  root: string
-) => void
+export type HandlerFnSync = (route: Route, root: string) => void
 
 /**
  * Represents the base structure of a route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface BaseRoute<Context extends object = object> {
+export interface BaseRoute {
   /**
    * The unique identifier for the route.
    */
@@ -166,11 +149,6 @@ export interface BaseRoute<Context extends object = object> {
   index: boolean
 
   /**
-   * Additional data associated with the route.
-   */
-  context?: Context
-
-  /**
    * Indicates whether the route is dynamic.
    */
   isDynamic: false
@@ -179,11 +157,8 @@ export interface BaseRoute<Context extends object = object> {
 /**
  * Represents a dynamic route, which can match and generate URLs
  * dynamically.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface DynamicRoute<Context extends object = object>
-  extends Omit<BaseRoute<Context>, 'isDynamic'> {
+export interface DynamicRoute extends Omit<BaseRoute, 'isDynamic'> {
   /**
    * Indicates whether the route is dynamic.
    */
@@ -218,57 +193,44 @@ export interface DynamicRoute<Context extends object = object>
 
 /**
  * Represents a route, which can be either a base route or a dynamic route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type Route<Context extends object = object> =
-  | BaseRoute<Context>
-  | DynamicRoute<Context>
+export type Route = BaseRoute | DynamicRoute
 
 /**
  * Represents a navigation route, which extends the base route structure and
  * can have children routes.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface NavigationRoute<Context extends object = object>
-  extends Omit<Route<Context>, 'id'> {
+export interface NavigationRoute extends Omit<Route, 'id'> {
   /**
    * Children routes of the navigation route.
    */
-  children?: NavigationRoute<Context>[]
+  children?: NavigationRoute[]
 }
 
 /**
  * A navigation route handler function.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type NavigationHandlerFn<Context extends object = object> = (
-  route: NavigationRoute<Context> | Route<Context>,
-  parrent: NavigationRoute<Context>
+export type NavigationHandlerFn = (
+  route: NavigationRoute | Route,
+  parrent: NavigationRoute
 ) => void | Promise<void>
 
 /**
  * A navigation route handler function.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type NavigationHandlerFnSync<Context extends object = object> = (
-  route: NavigationRoute<Context> | Route<Context>,
-  parrent: NavigationRoute<Context>
+export type NavigationHandlerFnSync = (
+  route: NavigationRoute | Route,
+  parrent: NavigationRoute
 ) => void
 
 /**
  * Represents a cache of routes.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type CacheRoute<Context extends object = object> = {
-  [key: string]: Route<Context>[]
+export type CacheRoute = {
+  [key: string]: Route[]
 }
 
 /** @private */
-export interface RouteNotation<Context extends object = object> {
-  [segment: string]: Route<Context> | RouteNotation<Context>
+export interface RouteNotation {
+  [segment: string]: Route | RouteNotation
 }

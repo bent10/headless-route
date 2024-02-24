@@ -17,9 +17,9 @@ import { isDynamicRouteSegment, parseRoutePath } from '../segments.js'
  * @param options - Options for visiting files and directories.
  * @param routes - An array to store the created routes.
  */
-export async function visit<Context extends object = object>(
-  options: Omit<Options<Context>, 'cache'> & { root: string; dir: string },
-  routes: Route<Context>[]
+export async function visit(
+  options: Omit<Options, 'cache'> & { root: string; dir: string },
+  routes: Route[]
 ): Promise<void> {
   const {
     root,
@@ -57,7 +57,7 @@ export async function visit<Context extends object = object>(
           const url = `/${stem + urlSuffix}`
           const index = url.endsWith('/index' + urlSuffix)
 
-          const route: Route<Context> = {
+          const route: Route = {
             id,
             stem,
             url,
@@ -68,7 +68,7 @@ export async function visit<Context extends object = object>(
           const isDynamic = segments.some(isDynamicRouteSegment)
 
           if (isDynamic) {
-            applyDynamicRouteProps<Context>(route)
+            applyDynamicRouteProps(route)
           }
 
           // call handler fn, useful to expand each route

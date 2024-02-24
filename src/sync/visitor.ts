@@ -10,9 +10,9 @@ import { createRoute, isIgnored, isValidExtension } from '../utils.js'
  * @param options - Options for visiting files and directories.
  * @param routes - An array to store the created routes.
  */
-export function visit<Context extends object = object>(
-  options: Omit<OptionsSync<Context>, 'cache'> & { root: string; dir: string },
-  routes: Route<Context>[]
+export function visit(
+  options: Omit<OptionsSync, 'cache'> & { root: string; dir: string },
+  routes: Route[]
 ): void {
   const {
     root,
@@ -38,7 +38,7 @@ export function visit<Context extends object = object>(
       if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
         continue
 
-      const route = createRoute<Context>(id, { root, urlSuffix })
+      const route = createRoute(id, { root, urlSuffix })
 
       // call handler fn, useful to expand each route
       handler?.(route, root)

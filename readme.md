@@ -54,7 +54,7 @@ const routes = await createRoutes({
       const apifile = `./${dirname}/api.js`
       const { fetchApi } = await import(apifile)
 
-      route.context = await fetchApi()
+      Object.assign(route, { context: await fetchApi() })
     }
   }
 })
@@ -405,7 +405,7 @@ const matchedRoute = findRoute('/contact.html', routes)
 
 ## Types
 
-### `Route<Context>`
+### `Route`
 
 Represents a single route in the MPA.
 
@@ -415,19 +415,13 @@ Represents a single route in the MPA.
 ```ts
 /**
  * Represents a route, which can be either a base route or a dynamic route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export type Route<Context extends object = object> =
-  | BaseRoute<Context>
-  | DynamicRoute<Context>
+export type Route = BaseRoute | DynamicRoute
 
 /**
  * Represents the base structure of a route.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface BaseRoute<Context extends object = object> {
+export interface BaseRoute {
   /**
    * The unique identifier for the route.
    */
@@ -449,11 +443,6 @@ export interface BaseRoute<Context extends object = object> {
   index: boolean
 
   /**
-   * Additional data associated with the route.
-   */
-  context?: Context
-
-  /**
    * Indicates whether the route is dynamic.
    */
   isDynamic: false
@@ -461,11 +450,8 @@ export interface BaseRoute<Context extends object = object> {
 
 /**
  * Represents a dynamic route, which can match and generate URLs dynamically.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface DynamicRoute<Context extends object = object>
-  extends Omit<BaseRoute<Context>, 'isDynamic'> {
+export interface DynamicRoute extends Omit<BaseRoute, 'isDynamic'> {
   /**
    * Indicates whether the route is dynamic.
    */
@@ -501,7 +487,7 @@ export interface DynamicRoute<Context extends object = object>
 
 </details>
 
-### `NavigationRoute<Context>`
+### `NavigationRoute`
 
 Represents a navigation route with additional data. It inherits all properties from `Route` except for `id`.
 
@@ -512,15 +498,12 @@ Represents a navigation route with additional data. It inherits all properties f
 /**
  * Represents a navigation route, which extends the base route structure and
  * can have children routes.
- *
- * @template Context The type of additional context data associated with the route.
  */
-export interface NavigationRoute<Context extends object = object>
-  extends Omit<Route<Context>, 'id'> {
+export interface NavigationRoute extends Omit<Route, 'id'> {
   /**
    * Children routes of the navigation route.
    */
-  children?: NavigationRoute<Context>[]
+  children?: NavigationRoute[]
 }
 ```
 

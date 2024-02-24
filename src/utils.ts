@@ -14,9 +14,7 @@ type IgnoreFn = (options?: IgOptions) => Ignore
 
 const ignore = (_ignore as unknown as IgnoreFn)().add(readGitignore())
 
-export function sortRoutes<Context extends object = object>(
-  routes: Route<Context>[]
-) {
+export function sortRoutes(routes: Route[]) {
   return routes.sort((a, b) => {
     if (a.id < b.id) return -1
     /* c8 ignore next 3 */
@@ -68,10 +66,10 @@ export function isValidExtension(extensions: string[], fileExtension: string) {
  * @param options - Configuration options for creating the route.
  * @returns A Route object representing the created route.
  */
-export function createRoute<Context extends object = object>(
+export function createRoute(
   id: string,
   options: { root: string; urlSuffix: string }
-): Route<Context> {
+): Route {
   const { root, urlSuffix } = options
 
   const fileExtension = extname(id)
@@ -84,12 +82,12 @@ export function createRoute<Context extends object = object>(
   const url = `/${stem + urlSuffix}`
   const index = url.endsWith('/index' + urlSuffix)
 
-  const route: Route<Context> = { id, stem, url, index, isDynamic: false }
+  const route: Route = { id, stem, url, index, isDynamic: false }
 
   const isDynamic = segments.some(isDynamicRouteSegment)
 
   if (isDynamic) {
-    applyDynamicRouteProps<Context>(route)
+    applyDynamicRouteProps(route)
   }
 
   return route
@@ -103,10 +101,10 @@ export function createRoute<Context extends object = object>(
  * @param parent - The parent route object.
  * @returns A NavigationRoute object representing the created parent route.
  */
-export function createParentRoute<Context extends object = object>(
+export function createParentRoute(
   segment: string,
-  parent: NavigationRoute<Context>
-): NavigationRoute<Context> {
+  parent: NavigationRoute
+): NavigationRoute {
   const stem = parent.stem ? `${parent.stem}/${segment}` : segment
 
   // initial "layout route" for children
@@ -125,10 +123,8 @@ export function createParentRoute<Context extends object = object>(
  * @param routes - An array of routes.
  * @returns Object notation representing the routes.
  */
-export function createRouteNotation<Context extends object = object>(
-  routes: Route<Context>[]
-) {
-  const notation: RouteNotation<Context> = {}
+export function createRouteNotation(routes: Route[]) {
+  const notation: RouteNotation = {}
 
   for (const route of routes) {
     setValue(notation, route.stem, route, {
@@ -146,10 +142,7 @@ export function createRouteNotation<Context extends object = object>(
  * @param routes - An array of routes to search.
  * @returns The matching route, if found, otherwise undefined.
  */
-export function findRoute<Context extends object = object>(
-  requestUrl: string,
-  routes: Route<Context>[]
-) {
+export function findRoute(requestUrl: string, routes: Route[]) {
   return routes.find(route => {
     if (route.isDynamic) {
       return route.isMatch?.(requestUrl)
@@ -165,9 +158,7 @@ export function findRoute<Context extends object = object>(
  *
  * @param route - The route object to which dynamic properties are applied.
  */
-export function applyDynamicRouteProps<Context extends object = object>(
-  route: Route<Context>
-) {
+export function applyDynamicRouteProps(route: Route) {
   const regexp = pathToRegexp(route.url)
   const fnMatch = match(route.url, {
     encode: encodeURI

@@ -72,7 +72,7 @@ describe('createRoutes', () => {
           const apifile = `./${dirname}/api.js`
           const { fetchApi } = await import(apifile)
 
-          route.context = await fetchApi()
+          Object.assign(route, { context: await fetchApi() })
         }
       }
     })

@@ -11,9 +11,7 @@ const cacheRouteSync: CacheRoute = {}
  * @param options - Options for route creation.
  * @returns An array of routes.
  */
-export function createRoutesSync<Context extends object = object>(
-  options: OptionsSync<Context> = {}
-): Route<Context>[] {
+export function createRoutesSync(options: OptionsSync = {}): Route[] {
   const { dir = '.', cache } = options
   const cwd = process.cwd()
   const resolvedDir = dir.startsWith(cwd)
@@ -21,11 +19,11 @@ export function createRoutesSync<Context extends object = object>(
     : dir
 
   if (cache && cacheRouteSync[dir]) {
-    return (cacheRouteSync as unknown as CacheRoute<Context>)[dir]
+    return (cacheRouteSync as unknown as CacheRoute)[dir]
   }
 
-  const routes: Route<Context>[] = []
-  visit<Context>({ ...options, root: resolvedDir, dir: resolvedDir }, routes)
+  const routes: Route[] = []
+  visit({ ...options, root: resolvedDir, dir: resolvedDir }, routes)
 
   if (cache) {
     Object.assign(cacheRouteSync, { [dir]: routes })

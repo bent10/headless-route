@@ -13,18 +13,14 @@ import { createParentRoute, createRouteNotation } from '../utils.js'
  * @param handler - A navigation route handler function.
  * @returns A nested array representing the navigation routes.
  */
-export function createNavigationSync<Context extends object = object>(
-  routes: Route<Context>[],
+export function createNavigationSync(
+  routes: Route[],
   handler?: NavigationHandlerFnSync
-): NavigationRoute<Context>[] {
-  const notation = createRouteNotation<Context>(routes)
-  const root: { children: NavigationRoute<Context>[] } = { children: [] }
+): NavigationRoute[] {
+  const notation = createRouteNotation(routes)
+  const root: { children: NavigationRoute[] } = { children: [] }
 
-  routeNotationToNavigationRoute<Context>(
-    notation,
-    root as NavigationRoute<Context>,
-    handler
-  )
+  routeNotationToNavigationRoute(notation, root as NavigationRoute, handler)
 
   return root.children
 }
@@ -36,9 +32,9 @@ export function createNavigationSync<Context extends object = object>(
  * @param parent - The parent route in the nested structure.
  * @returns The navigation route with nested children.
  */
-function routeNotationToNavigationRoute<Context extends object = object>(
-  notation: RouteNotation<Context>,
-  parent: NavigationRoute<Context>,
+function routeNotationToNavigationRoute(
+  notation: RouteNotation,
+  parent: NavigationRoute,
   handler?: NavigationHandlerFnSync
 ) {
   for (const segment in notation) {
@@ -50,8 +46,8 @@ function routeNotationToNavigationRoute<Context extends object = object>(
     if (route.stem && route.url) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...navRoute } = route
-      handler?.(navRoute as NavigationRoute<Context>, parent)
-      parent.children?.push(navRoute as Route<Context>)
+      handler?.(navRoute as NavigationRoute, parent)
+      parent.children?.push(navRoute as Route)
 
       continue
     }
@@ -64,11 +60,7 @@ function routeNotationToNavigationRoute<Context extends object = object>(
 
     handler?.(newRoute, nextparent)
 
-    routeNotationToNavigationRoute(
-      route as RouteNotation<Context>,
-      nextparent,
-      handler
-    )
+    routeNotationToNavigationRoute(route as RouteNotation, nextparent, handler)
   }
 
   return parent
