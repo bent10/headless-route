@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/bent10/headless-route/compare/v2.2.0...v2.3.0) (2024-02-25)
+
+
+### Features
+
+* exposes `routeSegments` ([40fdad8](https://github.com/bent10/headless-route/commit/40fdad8e6a42a814e1b5daa26d90b011136274d0))
+
 # [2.2.0](https://github.com/bent10/headless-route/compare/v2.1.0...v2.2.0) (2024-02-24)
 
 
