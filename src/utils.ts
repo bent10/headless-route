@@ -1,4 +1,3 @@
-import { extname } from 'node:path'
 import { readGitignore } from 'gitignore-reader'
 import _ignore, { type Ignore, type Options as IgOptions } from 'ignore'
 import { compile, match, pathToRegexp } from 'path-to-regexp'
@@ -6,7 +5,7 @@ import setValue from 'set-value'
 import {
   isDynamicRouteSegment,
   normalizeSegment,
-  parseRoutePath
+  routeSegments
 } from './segments.js'
 import type { NavigationRoute, Route, RouteNotation } from './types.js'
 
@@ -36,18 +35,6 @@ export function isIgnored(id: string) {
 }
 
 /**
- * Escapes special characters in a string to be used as a regular expression
- * pattern.
- *
- * @param str - The input string or value to escape.
- * @returns The escaped string with special characters replaced by their escaped
- *   counterparts.
- */
-export function escapeRegExp(str: string) {
-  return str.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&')
-}
-
-/**
  * Checks if the provided file extension is allowed based on the allowed
  * extensions array.
  *
@@ -72,12 +59,7 @@ export function createRoute(
 ): Route {
   const { root, urlSuffix } = options
 
-  const fileExtension = extname(id)
-  const routePath = id
-    .replace(new RegExp(`^${escapeRegExp(root)}`), '')
-    .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
-
-  const segments = parseRoutePath(routePath)
+  const segments = routeSegments(id, root)
   const stem = segments.join('/')
   const url = `/${stem + urlSuffix}`
   const index = url.endsWith('/index' + urlSuffix)

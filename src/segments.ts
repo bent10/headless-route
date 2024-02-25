@@ -1,3 +1,33 @@
+import { extname } from 'node:path'
+
+/**
+ * Extracts segments from a route ID relative to a `root` directory.
+ *
+ * @param id The route ID.
+ * @param root The root directory of the routes.
+ * @returns An array of segments representing the path of the route relative to the root directory.
+ */
+export function routeSegments(id: string, root = '') {
+  const fileExtension = extname(id)
+  const routePath = id
+    .replace(new RegExp(`^${escapeRegExp(root)}`), '')
+    .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
+
+  return parseRoutePath(routePath)
+}
+
+/**
+ * Escapes special characters in a string to be used as a regular expression
+ * pattern.
+ *
+ * @param str - The input string or value to escape.
+ * @returns The escaped string with special characters replaced by their escaped
+ *   counterparts.
+ */
+export function escapeRegExp(str: string) {
+  return str.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&')
+}
+
 /**
  * Checks if a segment of a route path is a dynamic segment. Dynamic
  * segments are typically indicated by a leading colon (`:`), dollar sign (`$`),
@@ -53,15 +83,14 @@ function isPartialDynamicRouteSegment(segment: string) {
  * @returns An array of normalized segments.
  */
 export function parseRoutePath(routePath: string) {
-  const normalizedRoutePath = routePath.startsWith('/')
-    ? routePath.slice(1)
-    : routePath
+  return routePath
+    .split('/')
+    .filter(Boolean)
+    .map(segment => {
+      const validSegment = getValidSegment(segment)
 
-  return normalizedRoutePath.split('/').map(segment => {
-    const validSegment = getValidSegment(segment)
-
-    return normalizeSegment(validSegment)
-  })
+      return normalizeSegment(validSegment)
+    })
 }
 
 /**

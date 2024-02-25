@@ -1,6 +1,17 @@
 /// <reference types="vitest/globals" />
 
-import { createRoute, createRoutesSync, findRoute } from '../src/index.js'
+import {
+  createRoute,
+  createRoutesSync,
+  findRoute,
+  routeSegments
+} from '../src/index.js'
+
+it('should create correct segments', () => {
+  const segments = routeSegments('foo/bar/baz.html', 'foo')
+
+  expect(segments).toEqual(['bar', 'baz'])
+})
 
 it('should create a base route', () => {
   const route = createRoute('pages/foo/bar', {

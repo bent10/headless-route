@@ -5,6 +5,7 @@ export { createRoutesSync } from './sync/routes.js'
 export { createNavigationSync } from './sync/navigation.js'
 
 // exposes some utilities
+export { routeSegments } from './segments.js'
 export { findRoute, createRoute } from './utils.js'
 
 export type * from './types.js'

@@ -403,6 +403,19 @@ const matchedRoute = findRoute('/contact.html', routes)
 // { id: 'pages/contact.md', stem: 'contact', url: '/contact.html', index: false, isDynamic: false }
 ```
 
+### `routeSegments(id: string, root?: string): string[]`
+
+A utility to extract segments from a route id relative to a `root` directory.
+
+```js
+import { routeSegments } from 'headless-route'
+
+const segments = routeSegments('foo/bar/baz.html', 'foo')
+
+// Yields:
+// ['bar', 'baz']
+```
+
 ## Types
 
 ### `Route`
