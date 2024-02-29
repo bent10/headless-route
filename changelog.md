@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/bent10/headless-route/compare/v2.3.0...v2.4.0) (2024-02-29)
+
+
+### Features
+
+* utilizes natural comparison to sort routes ([e838a43](https://github.com/bent10/headless-route/commit/e838a4371dfa89ed57c514ef5d2b747fe860df9c))
+
 # [2.3.0](https://github.com/bent10/headless-route/compare/v2.2.0...v2.3.0) (2024-02-25)
 
 
