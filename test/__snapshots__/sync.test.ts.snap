@@ -17,20 +17,6 @@ exports[`createNavigationSync > creates navigation routes from provided routes 1
         "url": "/example/404",
       },
       {
-        "children": [
-          {
-            "index": false,
-            "isDynamic": false,
-            "stem": "example/_ignores/hidden-page",
-            "url": "/example/_ignores/hidden-page",
-          },
-        ],
-        "index": true,
-        "isDynamic": false,
-        "stem": "example/_ignores",
-        "url": "/example/_ignores",
-      },
-      {
         "index": false,
         "isDynamic": false,
         "stem": "example/about",
@@ -471,18 +457,18 @@ exports[`createRoutesSync > scans directory for routes with custom absolute dire
     "url": "/changelog",
   },
   {
-    "id": "example/404.md",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/404",
-    "url": "/example/404",
-  },
-  {
     "id": "example/_ignores/hidden-page.md",
     "index": false,
     "isDynamic": false,
     "stem": "example/_ignores/hidden-page",
     "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
   },
   {
     "id": "example/about.md",
@@ -546,18 +532,18 @@ exports[`createRoutesSync > scans directory for routes with custom absolute dire
 exports[`createRoutesSync > scans directory for routes with custom directory 1`] = `
 [
   {
-    "id": "example/404.md",
-    "index": false,
-    "isDynamic": false,
-    "stem": "404",
-    "url": "/404",
-  },
-  {
     "id": "example/_ignores/hidden-page.md",
     "index": false,
     "isDynamic": false,
     "stem": "_ignores/hidden-page",
     "url": "/_ignores/hidden-page",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "404",
+    "url": "/404",
   },
   {
     "id": "example/about.md",
@@ -696,18 +682,18 @@ exports[`createRoutesSync > scans directory for routes with custom urlSuffix 1`]
     "url": "/changelog.html",
   },
   {
-    "id": "example/404.md",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/404",
-    "url": "/example/404.html",
-  },
-  {
     "id": "example/_ignores/hidden-page.md",
     "index": false,
     "isDynamic": false,
     "stem": "example/_ignores/hidden-page",
     "url": "/example/_ignores/hidden-page.html",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404.html",
   },
   {
     "id": "example/about.md",
@@ -778,18 +764,18 @@ exports[`createRoutesSync > scans directory for routes with default options 1`] 
     "url": "/changelog",
   },
   {
-    "id": "example/404.md",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/404",
-    "url": "/example/404",
-  },
-  {
     "id": "example/_ignores/hidden-page.md",
     "index": false,
     "isDynamic": false,
     "stem": "example/_ignores/hidden-page",
     "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
   },
   {
     "id": "example/about.md",
@@ -860,18 +846,18 @@ exports[`createRoutesSync > scans directory for routes with enabled cache 1`] = 
     "url": "/changelog",
   },
   {
-    "id": "example/404.md",
-    "index": false,
-    "isDynamic": false,
-    "stem": "example/404",
-    "url": "/example/404",
-  },
-  {
     "id": "example/_ignores/hidden-page.md",
     "index": false,
     "isDynamic": false,
     "stem": "example/_ignores/hidden-page",
     "url": "/example/_ignores/hidden-page",
+  },
+  {
+    "id": "example/404.md",
+    "index": false,
+    "isDynamic": false,
+    "stem": "example/404",
+    "url": "/example/404",
   },
   {
     "id": "example/about.md",

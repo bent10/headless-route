@@ -1,5 +1,6 @@
 import { readGitignore } from 'gitignore-reader'
 import _ignore, { type Ignore, type Options as IgOptions } from 'ignore'
+import naturalCompare from 'natural-compare-lite'
 import { compile, match, pathToRegexp } from 'path-to-regexp'
 import setValue from 'set-value'
 import {
@@ -13,14 +14,15 @@ type IgnoreFn = (options?: IgOptions) => Ignore
 
 const ignore = (_ignore as unknown as IgnoreFn)().add(readGitignore())
 
-export function sortRoutes(routes: Route[]) {
-  return routes.sort((a, b) => {
-    if (a.id < b.id) return -1
-    /* c8 ignore next 3 */
-    if (a.id > b.id) return 1
-
-    return 0
-  })
+/**
+ * Compares two routes based on their IDs using natural string comparison.
+ *
+ * @param a - The first route to compare.
+ * @param b - The second route to compare.
+ * @returns A number indicating the relative order of the routes.
+ */
+export function compareRoute<T extends Route = Route>(a: T, b: T): 0 | 1 | -1 {
+  return naturalCompare(a.id, b.id)
 }
 
 /**

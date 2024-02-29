@@ -1,5 +1,5 @@
 import type { CacheRoute, OptionsSync, Route } from '../types.js'
-import { sortRoutes } from '../utils.js'
+import { compareRoute } from '../utils.js'
 import { visit } from './visitor.js'
 
 // Initialize route cache
@@ -29,5 +29,5 @@ export function createRoutesSync(options: OptionsSync = {}): Route[] {
     Object.assign(cacheRouteSync, { [dir]: routes })
   }
 
-  return sortRoutes(routes)
+  return routes.sort(compareRoute)
 }
