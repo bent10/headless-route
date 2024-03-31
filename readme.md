@@ -4,9 +4,9 @@ A utility to help generate routes for a Multi-Page Application (MPA) based on th
 
 ## Packages
 
-| Package                          | Description                                  | Version (click for changelog)                                                     |
-| :------------------------------- | :------------------------------------------- | :-------------------------------------------------------------------------------- |
-| [headless-route](packages/alert) | Generate routes for a Multi-Page Application | [![npm](https://img.shields.io/npm/v/headless-route)](packages/core/changelog.md) |
+| Package                         | Description                                  | Version (click for changelog)                                                     |
+| :------------------------------ | :------------------------------------------- | :-------------------------------------------------------------------------------- |
+| [headless-route](packages/core) | Generate routes for a Multi-Page Application | [![npm](https://img.shields.io/npm/v/headless-route)](packages/core/changelog.md) |
 
 ## Contributing
 
