@@ -1,10 +1,8 @@
 {
-  "name": "headless-route",
-  "description": "A utility to help generate file-based routes for a Multi-Page Application",
+  "name": "headless-route-workspace",
+  "description": "Generate file-based routes for a Multi-Page Application",
   "version": "0.0.0-development",
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "author": "Beni Arisandi (https://stilearning.com)",
   "repository": "https://github.com/bent10/headless-route",
   "bugs": "https://github.com/bent10/headless-route/issues",
@@ -15,33 +13,22 @@
     "router",
     "static-route",
     "file-route",
-    "fs-route"
+    "fs-route",
+    "static-site",
+    "ssg",
+    "cms"
   ],
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "readme.md",
-    "license"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "start": "vite",
-    "dev": "vite build --watch",
-    "build": "vite build && npm run types",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "types": "tsc -d --emitDeclarationOnly --outDir ./dist",
-    "lint": "tsc --noEmit && eslint .",
-    "format": "prettier --write ."
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "coverage": "npm run coverage --workspaces --if-present",
+    "types": "npm run types --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "npm run format --workspaces --if-present"
   },
   "devDependencies": {
     "@types/natural-compare-lite": "1.4.2",
@@ -54,7 +41,8 @@
     "natural-compare-lite": "1.4.0",
     "normalize-path": "3.0.0",
     "path-to-regexp": "6.2.1",
-    "set-value": "4.1.0"
+    "set-value": "4.1.0",
+    "vite-plugin-cachedir": "^1.1.1"
   },
   "config": {
     "commitizen": {

@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:js-lib",
+    "config:recommended",
     "schedule:weekends",
     "schedule:automergeWeekly",
     "npm:unpublishSafe"
