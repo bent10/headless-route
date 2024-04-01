@@ -300,7 +300,6 @@ export class Api {
 
     const { content: contentNoMatter, data } = grayMatter(content)
     const {
-      layout,
       title = '',
       titleTemplate = '%s',
       ...restData
@@ -311,10 +310,6 @@ export class Api {
       title,
       ...baseRoute,
       ...restData
-    }
-
-    if (layout) {
-      matter.layout = String(layout).replace(/\..+/, '') + '.html'
     }
 
     setValue(route, 'context.matter', matter, {
