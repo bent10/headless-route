@@ -1,0 +1,49 @@
+{
+  "name": "@headless-route/vite",
+  "description": "Vite plugin for integrating headless-route",
+  "version": "0.0.0-development",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "route",
+    "routes",
+    "router",
+    "mpa",
+    "static-site",
+    "ssg",
+    "cms",
+    "headless-route"
+  ],
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "changelog.md",
+    "readme.md"
+  ],
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite build --watch",
+    "build": "vite build && npm run types",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "types": "tsc -d --emitDeclarationOnly --outDir ./dist",
+    "lint": "tsc --noEmit && eslint . --cache --cache-location ../../node_modules/.eslint",
+    "format": "prettier . --write --cache-location ../../node_modules/.prettier --ignore-path ../../.prettierignore"
+  },
+  "dependencies": {
+    "gray-matter": "4.0.3",
+    "headless-route": "2.4.0",
+    "loadee": "3.0.1",
+    "set-value": "4.1.0",
+    "youch": "3.3.3"
+  },
+  "peerDependencies": {
+    "vite": ">=4.0.0"
+  }
+}
