@@ -55,7 +55,6 @@ The plugin provides several options for configuring your headless routes:
 ## Related
 
 - [`headless-route`](https://github.com/bent10/headless-route/tree/main/packages/core)
-- [`@headless-route/vite-preset`](https://github.com/bent10/headless-route/tree/main/packages/vite-preset)
 
 ## Contributing
 
