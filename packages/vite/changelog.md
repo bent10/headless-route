@@ -1,3 +1,12 @@
+## @headless-route/vite [1.0.2](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.1...@headless-route/vite@1.0.2) (2024-04-01)
+
+
+### Bug Fixes
+
+* correct incorrect link ([9ff979b](https://github.com/bent10/headless-route/commit/9ff979bd754271889fa3410e6be5e2604f2d5714))
+* remove `log`, `dump`, and `escape` helpers ([90d6995](https://github.com/bent10/headless-route/commit/90d69959f65e40164773e2d05e26095ae7d71121))
+* update route context `getNavigation()` types ([c433dda](https://github.com/bent10/headless-route/commit/c433ddac31d668b89412cc4e2f6510e428f57a8e))
+
 ## @headless-route/vite [1.0.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.0...@headless-route/vite@1.0.1) (2024-04-01)
 
 
