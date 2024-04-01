@@ -1,4 +1,4 @@
-import type { PrimitiveValue, Store } from './types.js'
+import type { Store } from './types.js'
 
 /**
  * A class for storing key-value pairs in memory cache.
@@ -6,7 +6,7 @@ import type { PrimitiveValue, Store } from './types.js'
  * @template V - The type of value stored in the store.
  * @todo Refactor to implement [Web Cache interface](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
  */
-export class InMemoryStore<V extends PrimitiveValue = PrimitiveValue> {
+export class InMemoryStore<V = unknown> {
   /** @private */
   #store: Store<V> = {}
 

@@ -145,14 +145,17 @@ export interface Context extends ContentData {
  * Defines a function type for building navigation routes.
  *
  * @param urlSuffix - The suffix to append to the URL.
- * @param iconMap - Optional mapping of route IDs to icon names.
+ * @param navMeta - Optional mapping of route stem to it meta informations.
  * @returns A navigation route generated based on the provided parameters.
  */
 export type NavigationBuilder<T extends object = object> = (
-  this: Route[],
   urlSuffix: string,
-  iconMap?: Record<string, string>
+  navMeta?: NavigationMeta
 ) => RouteWith<T>[]
+
+export interface NavigationMeta {
+  [stem: string]: { [key: string]: unknown }
+}
 
 /**
  * Breadcrumb navigation item with text and href properties.
@@ -294,19 +297,6 @@ export interface Heading {
  * Represents a data store.
  */
 export type Store<V> = { [key: string]: V }
-
-/**
- * Represents a primitive value that can be stored in memory store, including
- * primitive types and `undefined`.
- */
-export type PrimitiveValue =
-  | bigint
-  | boolean
-  | number
-  | object
-  | string
-  | symbol
-  | undefined
 
 // Re-exporting types from 'headless-route'
 export type { BaseRoute, DynamicRoute, Route } from 'headless-route'

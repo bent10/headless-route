@@ -14,11 +14,11 @@ import type {
   Breadcrumb,
   HeadlessRouteOptions,
   MatterData,
+  NavigationMeta,
   Route,
   RouteWithContext
 } from './types.js'
-import { actionLog } from './utils.js'
-import defineHelpers from './helpers.js'
+import { actionLog, buildNavigation } from './utils.js'
 
 /**
  * Provides functionality for managing routes, data, and other operations
@@ -263,12 +263,19 @@ export class Api {
    * @param route - The route for which to create the context.
    */
   createRouteContext(route: RouteWithContext) {
+    const routes = this.routes
     route.context = {
       ...this.data.join(),
       ...this.data.getRouteData(route.url, this.routesConfig.urlSuffix),
       breadcrumb: this.#createBreadcrumb(route),
-      // shares some utilities to the context
-      ...defineHelpers(this.routes)
+      getNavigation(urlPrefix: string, navMeta: NavigationMeta = {}) {
+        const _routes = routes.map(
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          ({ id, context, ...baseRoute }) => baseRoute
+        ) as RouteWithContext[]
+
+        return buildNavigation(_routes, urlPrefix, navMeta)
+      }
     }
   }
 

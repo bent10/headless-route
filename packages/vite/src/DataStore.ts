@@ -3,11 +3,7 @@ import { routeSegments } from 'headless-route'
 import { loadFile } from 'loadee'
 import setValue from 'set-value'
 import { InMemoryStore } from './Cache.js'
-import type {
-  DataExtension,
-  DataStoreOptions,
-  PrimitiveValue
-} from './types.js'
+import type { DataExtension, DataStoreOptions } from './types.js'
 import { actionLog, deepFreeze, deepUnfreeze } from './utils.js'
 
 /**
@@ -17,9 +13,7 @@ import { actionLog, deepFreeze, deepUnfreeze } from './utils.js'
  *
  * @template V - The type of value stored in the store.
  */
-export class DataStore<
-  V extends PrimitiveValue = PrimitiveValue
-> extends InMemoryStore<V> {
+export class DataStore<V = unknown> extends InMemoryStore<V> {
   /**
    * Allowed file extensions for data sources.
    */
@@ -276,8 +270,8 @@ export class DataStore<
   /**
    * Recursively freezes the given value if it is an object.
    */
-  #freeze(value: V) {
-    return typeof value === 'object' ? deepFreeze(value) : value
+  #freeze(value: V): V {
+    return typeof value === 'object' ? <V>deepFreeze(value as object) : value
   }
 
   /**

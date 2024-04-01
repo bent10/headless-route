@@ -1,5 +1,39 @@
 import { relative, resolve } from 'node:path'
+import { createNavigationSync } from 'headless-route'
 import { createLogger, normalizePath } from 'vite'
+import { NavigationMeta, RouteWith, RouteWithContext } from './types.js'
+
+/**
+ * A utility for building navigation routes.
+ */
+export function buildNavigation<T extends object = object>(
+  routes: RouteWithContext[],
+  urlPrefix = '/',
+  navMeta: NavigationMeta = {}
+): RouteWith<T>[] {
+  const filteredRoutes = routes.filter(({ url }) => url.startsWith(urlPrefix))
+
+  if (!filteredRoutes.length) return <RouteWith<T>[]>[]
+
+  const navigation = createNavigationSync(filteredRoutes, route => {
+    const segments = route.stem.split('/').slice(1)
+    const lastSegment = String(segments.pop()).replace(/\-/g, ' ')
+    const text =
+      lastSegment.slice(0, 1).toUpperCase() + lastSegment.slice(1).toLowerCase()
+
+    if ('children' in route) {
+      segments.length
+        ? Object.assign(route, { id: route.stem.replace(/\//g, '-') })
+        : Object.assign(route, { type: 'group' })
+    }
+
+    Object.assign(route, { text }, navMeta[route.stem])
+  }) as RouteWith<T>[]
+
+  return 'children' in navigation[0]
+    ? <RouteWith<T>[]>navigation[0].children
+    : navigation
+}
 
 /**
  * Transforms an absolute path to a relative path based on the current working
