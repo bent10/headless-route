@@ -104,31 +104,53 @@ export type RouteWith<T extends object = object> = Omit<
 } & T
 
 /**
- * A route with context information.
+ * Represents a route with additional context information. This type extends
+ * the base `Route` type and adds a `context` property containing data and
+ * utilities specific to the route.
  */
 export type RouteWithContext = Route & {
   /**
-   * The context associated with the route.
+   * The context associated with the route. This object provides access to
+   * various data and helper functions within your components.
    */
   context: Context
 }
 
 /**
- * Context information associated with a route.
+ * Context information associated with a route. This interface includes data
+ * related to content, navigation, and other route-specific information.
  */
 export interface Context extends ContentData {
   /**
-   * Breadcrumb navigation items.
+   * The base directory of the project.
+   */
+  baseDir: string
+
+  /**
+   * The URL prefix for public assets.
+   */
+  public: string
+
+  /**
+   * The URL prefix for the current theme.
+   */
+  theme: string
+
+  /**
+   * Breadcrumb navigation items. This array contains objects with `text` and
+   * `href` properties, representing the breadcrumb trail for the route.
    */
   breadcrumb: Breadcrumb
 
   /**
-   * A utility for building navigation routes.
+   * A utility function for building navigation routes. This function takes a URL
+   * prefix and an optional map of navigation metadata and returns an array of
+   * navigation routes.
    *
    * @example
    * ```html
    * <ui:nav.stacked
-   *   items="{{getNavigation('/docs', navigationIcons)}}"
+   *   items="{{getNavigation('/docs', navMeta)}}"
    *   meta="{{matter}}"
    * />
    * ```
@@ -136,23 +158,34 @@ export interface Context extends ContentData {
   getNavigation: NavigationBuilder
 
   /**
-   * Additional context data.
+   * Additional context data. This allows you to store and access arbitrary data
+   * within the route context.
    */
   [key: string]: unknown
 }
 
 /**
- * Defines a function type for building navigation routes.
+ * Defines a function type for building navigation routes. This function takes a
+ * URL suffix and an optional map of navigation metadata and returns an array
+ * of navigation routes with the specified properties.
  *
- * @param urlSuffix - The suffix to append to the URL.
- * @param navMeta - Optional mapping of route stem to it meta informations.
- * @returns A navigation route generated based on the provided parameters.
+ * @param urlSuffix - The suffix to append to the URL of each
+ *   navigation route.
+ * @param navMeta - An optional object mapping route stems to their corresponding
+ *   metadata. This metadata can be used to add custom properties to the
+ *   navigation routes, such as icons or additional data.
+ * @returns An array of navigation routes with the specified properties.
  */
 export type NavigationBuilder<T extends object = object> = (
   urlSuffix: string,
   navMeta?: NavigationMeta
 ) => RouteWith<T>[]
 
+/**
+ * Represents an object mapping route stems to their corresponding
+ * navigation metadata. This metadata can be used to add custom properties
+ * to the navigation routes, such as icons or additional data.
+ */
 export interface NavigationMeta {
   [stem: string]: { [key: string]: unknown }
 }
