@@ -522,6 +522,10 @@ export interface NavigationRoute extends Omit<Route, 'id'> {
 
 </details>
 
+## Related
+
+- [`@headless-route/vite`](https://github.com/bent10/headless-route/tree/main/packages/vite)
+
 ## Contributing
 
 We 💛&nbsp; issues.
