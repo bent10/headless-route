@@ -6,7 +6,10 @@ import cacheDir from 'vite-plugin-cachedir'
 export default defineConfig({
   plugins: [cacheDir()],
   build: {
-    ssr: 'src/index.ts'
+    ssr: 'src/index.ts',
+    rollupOptions: {
+      external: ['headless-route']
+    }
   },
   test: {
     globals: true,
