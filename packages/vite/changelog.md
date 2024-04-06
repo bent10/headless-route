@@ -1,3 +1,12 @@
+## @headless-route/vite [1.0.4](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.3...@headless-route/vite@1.0.4) (2024-04-06)
+
+
+### Bug Fixes
+
+* avoid opinionated `matter.layout` value ([456ae36](https://github.com/bent10/headless-route/commit/456ae36611c2ecca95d39fd7cdfac55c3336bf3a))
+* expose `context.baseDir` ([9ae4c8d](https://github.com/bent10/headless-route/commit/9ae4c8d90b43e699fecf57999f766fae9c0c412f))
+* improved the clarity and conciseness of the comments ([7b6483f](https://github.com/bent10/headless-route/commit/7b6483f6423d96f85cb4387dc7568d92861d0481))
+
 ## @headless-route/vite [1.0.3](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.2...@headless-route/vite@1.0.3) (2024-04-06)
 
 
