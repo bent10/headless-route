@@ -331,5 +331,11 @@ export interface Heading {
  */
 export type Store<V> = { [key: string]: V }
 
+export type FilterRoutesFn = (
+  routes: RouteWithContext,
+  index: number,
+  array: RouteWithContext[]
+) => boolean
+
 // Re-exporting types from 'headless-route'
 export type { BaseRoute, DynamicRoute, Route } from 'headless-route'

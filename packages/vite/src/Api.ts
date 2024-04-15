@@ -12,6 +12,7 @@ import { devCache } from './Cache.js'
 import { DataStore } from './DataStore.js'
 import type {
   Breadcrumb,
+  FilterRoutesFn,
   HeadlessRouteOptions,
   MatterData,
   NavigationMeta,
@@ -268,13 +269,17 @@ export class Api {
       ...this.data.join(),
       ...this.data.getRouteData(route.url, this.routesConfig.urlSuffix),
       breadcrumb: this.#createBreadcrumb(route),
-      getNavigation(urlPrefix: string, navMeta: NavigationMeta = {}) {
+      getNavigation(
+        urlPrefix: string,
+        navMeta: NavigationMeta = {},
+        filterFn: FilterRoutesFn = () => true
+      ) {
         const _routes = routes.map(
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           ({ id, context, ...baseRoute }) => baseRoute
         ) as RouteWithContext[]
 
-        return buildNavigation(_routes, urlPrefix, navMeta)
+        return buildNavigation(_routes, urlPrefix, navMeta, filterFn)
       }
     }
   }

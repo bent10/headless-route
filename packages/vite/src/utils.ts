@@ -1,7 +1,12 @@
 import { relative, resolve } from 'node:path'
 import { createNavigationSync } from 'headless-route'
 import { createLogger, normalizePath } from 'vite'
-import { NavigationMeta, RouteWith, RouteWithContext } from './types.js'
+import type {
+  FilterRoutesFn,
+  NavigationMeta,
+  RouteWith,
+  RouteWithContext
+} from './types.js'
 
 /**
  * A utility for building navigation routes.
@@ -9,15 +14,20 @@ import { NavigationMeta, RouteWith, RouteWithContext } from './types.js'
 export function buildNavigation<T extends object = object>(
   routes: RouteWithContext[],
   urlPrefix = '/',
-  navMeta: NavigationMeta = {}
+  navMeta: NavigationMeta = {},
+  filterFn: FilterRoutesFn = () => true
 ): RouteWith<T>[] {
-  const filteredRoutes = routes.filter(({ url }) => url.startsWith(urlPrefix))
+  const filteredRoutes = routes
+    .filter(({ url }) => url.startsWith(urlPrefix))
+    .filter(filterFn)
 
   if (!filteredRoutes.length) return <RouteWith<T>[]>[]
 
   const navigation = createNavigationSync(filteredRoutes, route => {
     const segments = route.stem.split('/').slice(1)
-    const lastSegment = String(segments.pop()).replace(/\-/g, ' ')
+    const lastSegment = String(
+      segments.length ? segments.pop() : route.stem
+    ).replace(/\-/g, ' ')
     const text =
       lastSegment.slice(0, 1).toUpperCase() + lastSegment.slice(1).toLowerCase()
 
@@ -30,9 +40,7 @@ export function buildNavigation<T extends object = object>(
     Object.assign(route, { text }, navMeta[route.stem])
   }) as RouteWith<T>[]
 
-  return 'children' in navigation[0]
-    ? <RouteWith<T>[]>navigation[0].children
-    : navigation
+  return navigation
 }
 
 /**
