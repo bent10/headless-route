@@ -1,3 +1,10 @@
+# @headless-route/vite [1.1.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.4...@headless-route/vite@1.1.0) (2024-04-15)
+
+
+### Features
+
+* enhance `createRouteContext` method to support route filtering in `getNavigation` ([ab6ec55](https://github.com/bent10/headless-route/commit/ab6ec55e7f132cc9a9a1236922399522e5c97129))
+
 ## @headless-route/vite [1.0.4](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.3...@headless-route/vite@1.0.4) (2024-04-06)
 
 
