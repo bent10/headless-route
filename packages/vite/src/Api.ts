@@ -294,13 +294,12 @@ export class Api {
    */
   parseMetadata(route: RouteWithContext, content?: string) {
     const {
-      id,
       context: { matter: _matter },
       ...baseRoute
     } = route
 
     if (!content) {
-      content = readFileSync(id, 'utf8')
+      content = readFileSync(route.id, 'utf8')
     }
 
     const { content: contentNoMatter, data } = grayMatter(content)

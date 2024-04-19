@@ -223,8 +223,7 @@ export interface ContentData {
 /**
  * Metadata extracted from content matter.
  */
-export interface MatterData
-  extends Omit<Route, 'id' | 'context' | 'isDynamic'> {
+export interface MatterData extends Omit<Route, 'context'> {
   /**
    * The template string that will be rendered in the `<title>` tag. Must
    * contain `%s`, it will be replaced with the `title` prop.
