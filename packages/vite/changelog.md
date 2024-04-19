@@ -1,3 +1,10 @@
+## @headless-route/vite [1.1.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.1.0...@headless-route/vite@1.1.1) (2024-04-19)
+
+
+### Bug Fixes
+
+* expose `route.id` for runtime usage ([8d2b1b4](https://github.com/bent10/headless-route/commit/8d2b1b4086b93160e1efff3fb46f4c6330bd4736))
+
 # @headless-route/vite [1.1.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.0.4...@headless-route/vite@1.1.0) (2024-04-15)
 
 
