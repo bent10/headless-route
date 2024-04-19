@@ -31,7 +31,7 @@ export default defineConfig({
         // we can define multiple handler
         md: [
           async function markdownHandler(content) {
-            // process html content here...
+            // process markdown content here...
             return content
           },
           // The string `'html'` indicates that the html handler will execute
