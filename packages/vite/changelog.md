@@ -1,3 +1,10 @@
+## @headless-route/vite [1.3.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.0...@headless-route/vite@1.3.1) (2024-04-20)
+
+
+### Bug Fixes
+
+* update `urlPrefix` to fit with Vite configuration ([32c6f5a](https://github.com/bent10/headless-route/commit/32c6f5aef388ae5f5b93ca0ba33dea6e0a13ca6d))
+
 # @headless-route/vite [1.3.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.2.1...@headless-route/vite@1.3.0) (2024-04-20)
 
 
