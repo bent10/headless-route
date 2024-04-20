@@ -9,6 +9,37 @@ import type {
 } from './types.js'
 
 /**
+ * Retrieves the prev and next routes relative to the current route in the
+ * list of routes.
+ */
+export function paginateRoute(
+  routes: RouteWithContext[],
+  route: RouteWithContext
+) {
+  const index = routes.findIndex(({ id }) => route.id === id)
+  const paginated: { prevRoute?: RouteWith; nextRoute?: RouteWith } = {}
+
+  const prevRoute = routes[index - 1]
+  const nextRoute = routes[index + 1]
+
+  if (prevRoute) {
+    // avoid max call stacks
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { context: _pc, ...pr } = prevRoute
+    paginated.prevRoute = pr
+  }
+
+  if (nextRoute) {
+    // avoid max call stacks
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { context: _nc, ...nr } = nextRoute
+    paginated.nextRoute = nr
+  }
+
+  return paginated
+}
+
+/**
  * A utility for building navigation routes.
  */
 export function buildNavigation<T extends object = object>(

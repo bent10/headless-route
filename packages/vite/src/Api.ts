@@ -19,7 +19,7 @@ import type {
   Route,
   RouteWithContext
 } from './types.js'
-import { actionLog, buildNavigation } from './utils.js'
+import { actionLog, buildNavigation, paginateRoute } from './utils.js'
 
 /**
  * Provides functionality for managing routes, data, and other operations
@@ -265,9 +265,13 @@ export class Api {
    */
   createRouteContext(route: RouteWithContext) {
     const routes = this.routes
+    const { prevRoute, nextRoute } = paginateRoute(routes, route)
+
     route.context = {
       ...this.data.join(),
       ...this.data.getRouteData(route.url, this.routesConfig.urlSuffix),
+      prevRoute,
+      nextRoute,
       breadcrumb: this.#createBreadcrumb(route),
       getNavigation(
         urlPrefix: string,

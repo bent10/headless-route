@@ -158,6 +158,16 @@ export interface Context extends ContentData {
   getNavigation: NavigationBuilder
 
   /**
+   * The previous route relative to the current route.
+   */
+  prevRoute?: RouteWith
+
+  /**
+   * The next route relative to the current route.
+   */
+  nextRoute?: RouteWith
+
+  /**
    * Additional context data. This allows you to store and access arbitrary data
    * within the route context.
    */
