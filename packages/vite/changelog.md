@@ -1,3 +1,15 @@
+# @headless-route/vite [1.3.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.2.1...@headless-route/vite@1.3.0) (2024-04-20)
+
+
+### Bug Fixes
+
+* **deps:** update `headless-route` to `v2.5.0` ([8bea3ce](https://github.com/bent10/headless-route/commit/8bea3ceda05b41c16a94ff3e69b5bf415a561897))
+
+
+### Features
+
+* wrap built-in data within `context.env` object ([507e093](https://github.com/bent10/headless-route/commit/507e0933e0e79871dd15a66a69d0d6fefdb17c79))
+
 ## @headless-route/vite [1.2.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.2.0...@headless-route/vite@1.2.1) (2024-04-20)
 
 
