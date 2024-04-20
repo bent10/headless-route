@@ -1,3 +1,10 @@
+# @headless-route/vite [1.2.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.1.1...@headless-route/vite@1.2.0) (2024-04-20)
+
+
+### Features
+
+* provide `prevRoute` and `nextRoute` to the route `context` for simplified pagination ([fb8be85](https://github.com/bent10/headless-route/commit/fb8be85334ad5bc1d850e8a89ea322e47b24dcc8))
+
 ## @headless-route/vite [1.1.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.1.0...@headless-route/vite@1.1.1) (2024-04-19)
 
 
