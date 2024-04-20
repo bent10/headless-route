@@ -5,7 +5,7 @@ import type { PluginContextMeta } from 'rollup'
  * Options for configuring the headless routes plugin.
  */
 export interface HeadlessRouteOptions
-  extends Omit<Options, 'cache' | 'handler'> {
+  extends Omit<Options, 'cache' | 'handler' | 'urlPrefix'> {
   /**
    * Options for data.
    */

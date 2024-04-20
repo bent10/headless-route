@@ -27,6 +27,7 @@ export function headlessRoute(options?: HeadlessRouteOptions): Plugin<Api> {
       const relativeRoot = toRelativePath(root)
 
       // tweaks data config to fit with Vite configuration
+      api.routesConfig.urlPrefix = base
       api.routesConfig.dir = toRelativePath(
         join(relativeRoot, api.routesConfig.dir)
       )

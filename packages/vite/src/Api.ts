@@ -47,7 +47,7 @@ export class Api {
    */
   routesConfig: Required<
     Omit<HeadlessRouteOptions, 'fallbackRoute' | 'handler' | 'dataOptions'>
-  >
+  > & { urlPrefix: string }
 
   /**
    * The list of routes.
@@ -130,6 +130,7 @@ export class Api {
   createRoute(id: string) {
     const newRoute = createRoute(id, {
       root: this.routesConfig.dir,
+      urlPrefix: this.routesConfig.urlPrefix,
       urlSuffix: this.routesConfig.urlSuffix
     })
 
