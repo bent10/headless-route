@@ -121,20 +121,32 @@ export type RouteWithContext = Route & {
  * related to content, navigation, and other route-specific information.
  */
 export interface Context extends ContentData {
-  /**
-   * The base directory of the project.
-   */
-  baseDir: string
+  env: {
+    /**
+     * The root directory.
+     */
+    root: string
+
+    /**
+     * The directory path where route files are located.
+     */
+    routesDir: string
+
+    /**
+     * Base public path when served in development or production.
+     */
+    base: string
+
+    /**
+     * The URL prefix for public assets.
+     */
+    public: string
+  }
 
   /**
-   * The URL prefix for public assets.
+   * The resolved path of the route.
    */
-  public: string
-
-  /**
-   * The URL prefix for the current theme.
-   */
-  theme: string
+  resolvedPath: string
 
   /**
    * Breadcrumb navigation items. This array contains objects with `text` and

@@ -23,7 +23,7 @@ export function headlessRoute(options?: HeadlessRouteOptions): Plugin<Api> {
         optimizeDeps: { include: [] }
       }
     },
-    async configResolved({ root, build }) {
+    async configResolved({ root, base, build }) {
       const relativeRoot = toRelativePath(root)
 
       // tweaks data config to fit with Vite configuration
@@ -38,18 +38,15 @@ export function headlessRoute(options?: HeadlessRouteOptions): Plugin<Api> {
 
       // init api
       await api.init()
-      // exposes baseDir, public and theme props to the runtime env
+      // exposes built-in data as 'env' object to the runtime
       api.data.set(
-        `${api.data.config.dir}/baseDir${api.data.config.extensions[0]}`,
-        api.routesConfig.dir
-      )
-      api.data.set(
-        `${api.data.config.dir}/public${api.data.config.extensions[0]}`,
-        `/${build.assetsDir}`
-      )
-      api.data.set(
-        `${api.data.config.dir}/theme${api.data.config.extensions[0]}`,
-        `${import.meta.env?.APP_THEME || import.meta.env?.VITE_THEME || '/theme'}`
+        `${api.data.config.dir}/env${api.data.config.extensions[0]}`,
+        {
+          root: relativeRoot,
+          routesDir: api.routesConfig.dir,
+          base,
+          public: base + build.assetsDir
+        }
       )
 
       // sets input and inputMap for build purpose

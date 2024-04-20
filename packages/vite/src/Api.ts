@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { relative } from 'node:path'
 import grayMatter from 'gray-matter'
 import {
   compareRoute,
@@ -81,6 +82,7 @@ export class Api {
     this.routesConfig = {
       dir: 'pages',
       extensions: ['.html', '.md'],
+      urlPrefix: '/',
       urlSuffix: '.html',
       filter: () => true,
       ...routesOptions
@@ -286,6 +288,11 @@ export class Api {
         return buildNavigation(_routes, urlPrefix, navMeta, filterFn)
       }
     }
+
+    route.context.resolvedPath = relative(
+      route.stem.split('/').slice(0, -1).join('/'),
+      route.context.env.root
+    )
   }
 
   /**
