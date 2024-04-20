@@ -1,3 +1,10 @@
+# headless-route [2.5.0](https://github.com/bent10/headless-route/compare/headless-route@2.4.0...headless-route@2.5.0) (2024-04-20)
+
+
+### Features
+
+* add `urlPrefix` option ([6d6718d](https://github.com/bent10/headless-route/commit/6d6718dadef6154781276fec511a2d90bb3c1d40))
+
 # [2.4.0](https://github.com/bent10/headless-route/compare/v2.3.0...v2.4.0) (2024-02-29)
 
 
