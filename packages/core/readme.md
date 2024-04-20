@@ -1,6 +1,24 @@
 # Headless Route
 
-A utility to help generate routes for a Multi-Page Application (MPA) based on the file structure of a directory. It offers functions to create routes and navigation routes from the directory structure, allowing for easy navigation and dynamic routing.
+Generate routes for a Multi-Page Application (MPA) based on the file structure of a directory. It offers functions to create routes and navigation routes from the directory structure, allowing for easy navigation and dynamic routing.
+
+- [Install](#install)
+- [Usage](#usage)
+- [Best practices](#best-practices)
+- [API](#api)
+  - [`createRoutes(options: Options): Promise<Route[]>`](#createroutesoptions-options-promiseroute)
+  - [`createRoutesSync(options: OptionsSync): Route[]`](#createroutessyncoptions-optionssync-route)
+  - [`createNavigation(routes: Route[], handler?: NavigationHandlerFn): Promise<NavigationRoute[]>`](#createnavigationroutes-route-handler-navigationhandlerfn-promisenavigationroute)
+  - [`createNavigationSync(routes: Route[], handler?: NavigationHandlerFnSync): NavigationRoute[]`](#createnavigationsyncroutes-route-handler-navigationhandlerfnsync-navigationroute)
+  - [`createRoute(id: string, options: { root: string, urlPrefix: string }): Route`](#createrouteid-string-options--root-string-urlprefix-string--route)
+  - [`findRoute(requestUrl: string, routes: Route[]): Route | undefined`](#findrouterequesturl-string-routes-route-route--undefined)
+  - [`routeSegments(id: string, root?: string): string[]`](#routesegmentsid-string-root-string-string)
+- [Types](#types)
+  - [`Route`](#route)
+  - [`NavigationRoute`](#navigationroute)
+- [Related](#related)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Install
 
@@ -319,9 +337,21 @@ const routes = await createRoutes({
 Creates routes based on the specified `options`:
 
 - `dir`: The directory to scan for routes. Defaults to the current working directory (`process.cwd()`).
+
 - `extensions`: The file extensions to include when scanning for routes. Defaults (`['.html', '.md']`).
-- `urlSuffix`: The suffix to append to route URLs. Defaults to an empty string.
+
+- `urlPrefix`: Defines the prefix to prepend to route URLs. Defaults `'/'`.
+
+  Acceptable values include:
+
+  - Absolute URL pathname, e.g., `/foo/`
+  - Full URL, e.g., `https://foo.com/`
+  - Empty string or `./`
+
+- `urlSuffix`: Defines the suffix to append to route URLs. Defaults `''`.
+
 - `cache`: Indicates whether to cache routes. Defaults to `false`.
+
 - `filter`: A filter function for filtering [`Dirent`](https://nodejs.org/api/fs.html#class-fsdirent) objects. It automatically disregards files and directories listed in the project's `.gitignore` file, ensuring they are consistently excluded from consideration.
 
   ```js

@@ -18,7 +18,8 @@ export async function visit(
   const {
     root,
     dir,
-    urlSuffix = '',
+    urlPrefix,
+    urlSuffix,
     extensions = ['.html', '.md'],
     filter = () => true,
     handler
@@ -41,7 +42,7 @@ export async function visit(
           if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
             return
 
-          const route = createRoute(id, { root, urlSuffix })
+          const route = createRoute(id, { root, urlSuffix, urlPrefix })
 
           // call handler fn, useful to expand each route
           await handler?.(route, root)

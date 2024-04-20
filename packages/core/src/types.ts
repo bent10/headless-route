@@ -17,7 +17,18 @@ export interface Options {
   extensions?: string[]
 
   /**
-   * The suffix to append to route URLs.
+   * Defines the prefix to prepend to route URLs. Acceptable values include:
+   *
+   * - Absolute URL pathname, e.g., `/foo/`
+   * - Full URL, e.g., `https://foo.com/`
+   * - Empty string or `./`
+   *
+   * @default '/'
+   */
+  urlPrefix?: string
+
+  /**
+   * Defines the suffix to append to route URLs.
    */
   urlSuffix?: string
 

@@ -17,7 +17,8 @@ export function visit(
   const {
     root,
     dir,
-    urlSuffix = '',
+    urlPrefix,
+    urlSuffix,
     extensions = ['.html', '.md'],
     filter = () => true,
     handler
@@ -38,7 +39,7 @@ export function visit(
       if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
         continue
 
-      const route = createRoute(id, { root, urlSuffix })
+      const route = createRoute(id, { root, urlSuffix, urlPrefix })
 
       // call handler fn, useful to expand each route
       handler?.(route, root)

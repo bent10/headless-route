@@ -15,8 +15,7 @@ it('should create correct segments', () => {
 
 it('should create a base route', () => {
   const route = createRoute('pages/foo/bar', {
-    root: 'pages',
-    urlSuffix: ''
+    root: 'pages'
   })
 
   expect(route).toMatchInlineSnapshot(`
@@ -36,10 +35,77 @@ it('should create a base route', () => {
   expect(nonEnumProps).toEqual([false, false, false])
 })
 
+it('should create a base route with relative url prefix', () => {
+  const route = createRoute('pages/foo/bar', {
+    root: 'pages',
+    urlPrefix: './docs'
+  })
+
+  expect(route).toMatchInlineSnapshot(`
+    {
+      "id": "pages/foo/bar",
+      "index": false,
+      "isDynamic": false,
+      "stem": "foo/bar",
+      "url": "./docs/foo/bar",
+    }
+  `)
+})
+
+it('should create a base route with absolute url prefix', () => {
+  const route = createRoute('pages/foo/bar', {
+    root: 'pages',
+    urlPrefix: '/docs'
+  })
+
+  expect(route).toMatchInlineSnapshot(`
+    {
+      "id": "pages/foo/bar",
+      "index": false,
+      "isDynamic": false,
+      "stem": "foo/bar",
+      "url": "/docs/foo/bar",
+    }
+  `)
+})
+
+it('should create a base route with full url prefix', () => {
+  const route = createRoute('pages/foo/bar', {
+    root: 'pages',
+    urlPrefix: 'https://example.com'
+  })
+
+  expect(route).toMatchInlineSnapshot(`
+    {
+      "id": "pages/foo/bar",
+      "index": false,
+      "isDynamic": false,
+      "stem": "foo/bar",
+      "url": "https://example.com/foo/bar",
+    }
+  `)
+})
+
+it('should create a base route with empty string prefix', () => {
+  const route = createRoute('pages/foo/bar', {
+    root: 'pages',
+    urlPrefix: ''
+  })
+
+  expect(route).toMatchInlineSnapshot(`
+    {
+      "id": "pages/foo/bar",
+      "index": false,
+      "isDynamic": false,
+      "stem": "foo/bar",
+      "url": "./foo/bar",
+    }
+  `)
+})
+
 it('should create a dynamic route', () => {
   const route = createRoute('pages/foo/:bar', {
-    root: 'pages',
-    urlSuffix: ''
+    root: 'pages'
   })
 
   expect(route).toMatchInlineSnapshot(`
@@ -119,7 +185,7 @@ it('should find a base route from routes object based on the request URL', () =>
 })
 
 it('should find a dynamic route from routes object based on the request URL', () => {
-  const config = { root: 'pages', urlSuffix: '' }
+  const config = { root: 'pages' }
   const routes = [
     // dynamic segments
     createRoute('pages/teams/:id.md', config),
@@ -157,7 +223,7 @@ it('should find a dynamic route from routes object based on the request URL', ()
 })
 
 it('should find an optional route from routes object based on the request URL', () => {
-  const config = { root: 'pages', urlSuffix: '' }
+  const config = { root: 'pages' }
   const routes = [
     // optional segments
     createRoute('pages/:lang?/group.md', config),
@@ -194,7 +260,7 @@ it('should find an optional route from routes object based on the request URL', 
 })
 
 it('should find a splats route from routes object based on the request URL', () => {
-  const config = { root: 'pages', urlSuffix: '' }
+  const config = { root: 'pages' }
   const routes = [
     // splat or "catchall" or "star" segments (zero or more params)
     createRoute('pages/files/*.md', config),
@@ -246,8 +312,7 @@ it('should find a splats route from routes object based on the request URL', () 
 
 it('should fail to match dynamic route params', () => {
   const route = createRoute('pages/blogs/:slug', {
-    root: 'pages',
-    urlSuffix: ''
+    root: 'pages'
   })
 
   if (route?.isDynamic) {
@@ -276,8 +341,7 @@ it('should generate a dynamic route path', () => {
 
 it('should match encoded paths correctly', () => {
   const route = createRoute('pages/café.md', {
-    root: 'pages',
-    urlSuffix: ''
+    root: 'pages'
   })
   // possible ways of writing `/café`:
   const reqs = ['/caf\u00E9', '/cafe\u0301', '/caf%C3%A9', '/café']

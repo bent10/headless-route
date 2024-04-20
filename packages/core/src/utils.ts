@@ -57,13 +57,15 @@ export function isValidExtension(extensions: string[], fileExtension: string) {
  */
 export function createRoute(
   id: string,
-  options: { root: string; urlSuffix: string }
+  options: { root: string; urlPrefix?: string; urlSuffix?: string }
 ): Route {
-  const { root, urlSuffix } = options
+  const { root, urlPrefix = '/', urlSuffix = '' } = options
+  const normalizedUrlPrefix =
+    urlPrefix === '' ? './' : urlPrefix.replace(/\/+$/g, '') + '/'
 
   const segments = routeSegments(id, root)
   const stem = segments.join('/')
-  const url = `/${stem + urlSuffix}`
+  const url = normalizedUrlPrefix + stem + urlSuffix
   const index = url.endsWith('/index' + urlSuffix)
 
   const route: Route = { id, stem, url, index, isDynamic: false }
