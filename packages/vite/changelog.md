@@ -1,3 +1,10 @@
+## @headless-route/vite [1.3.2](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.1...@headless-route/vite@1.3.2) (2024-04-21)
+
+
+### Bug Fixes
+
+* add some missing fields ([735b02c](https://github.com/bent10/headless-route/commit/735b02ce7fa83cbb08678b564d384c54c7be0004))
+
 ## @headless-route/vite [1.3.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.0...@headless-route/vite@1.3.1) (2024-04-20)
 
 
