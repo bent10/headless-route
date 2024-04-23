@@ -54,7 +54,7 @@ export function headlessRoute(options?: HeadlessRouteOptions): Plugin<Api> {
       api.routes.forEach(route => {
         input.push(route.url)
         inputMap[route.url] = {
-          namespace: relativeRoot + route.url,
+          namespace: relativeRoot + route.url.replace(base, '/'),
           id: route.id
         }
       })
