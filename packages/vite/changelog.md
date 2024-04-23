@@ -1,3 +1,10 @@
+## @headless-route/vite [1.3.3](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.2...@headless-route/vite@1.3.3) (2024-04-23)
+
+
+### Bug Fixes
+
+* resolve missing file specifier error by adjusting Vite `base` URL configuration ([528254c](https://github.com/bent10/headless-route/commit/528254c78fdb37fb91fa842c89ebbb0420a16167))
+
 ## @headless-route/vite [1.3.2](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.1...@headless-route/vite@1.3.2) (2024-04-21)
 
 
