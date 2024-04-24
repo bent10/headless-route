@@ -1,3 +1,10 @@
+## @headless-route/vite [1.3.4](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.3...@headless-route/vite@1.3.4) (2024-04-24)
+
+
+### Bug Fixes
+
+* ensure proper handling of `outDir` when `root` differs from default and `outDir` is unset by the user ([3a6fc6a](https://github.com/bent10/headless-route/commit/3a6fc6ab33e310ba34948c96810656a5ea69ec19))
+
 ## @headless-route/vite [1.3.3](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.2...@headless-route/vite@1.3.3) (2024-04-23)
 
 
