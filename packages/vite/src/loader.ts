@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
+import { dirname, join, relative } from 'node:path'
 import type { Plugin } from 'vite'
 import { Api } from './Api.js'
 import { devCache } from './Cache.js'
@@ -60,6 +60,12 @@ export function headlessRoute(options?: HeadlessRouteOptions): Plugin<Api> {
       })
 
       build.rollupOptions.input = input
+
+      // handle `outDir` when `root` is not a default value and `outDir` is not set by the user
+      if (root !== process.cwd() && build.outDir === 'dist') {
+        build.outDir = relative(root, build.outDir)
+        build.emptyOutDir = true
+      }
     },
     resolveId(url) {
       if (input.includes(url)) {
