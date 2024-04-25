@@ -70,7 +70,10 @@ export default function serve(): Plugin {
             }
 
             if (req.headers['sec-fetch-dest'] === 'document') {
-              let route = api.getRoute(server.config.base + req.url?.slice(1))
+              let route = api.getRoute(
+                server.config.base +
+                  (req.url?.slice(1) || `index${api.routesConfig.urlSuffix}`)
+              )
               let statusCode = 200
 
               // @todo add option to handle error 404
