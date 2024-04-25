@@ -1,3 +1,10 @@
+## @headless-route/vite [1.3.5](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.4...@headless-route/vite@1.3.5) (2024-04-25)
+
+
+### Bug Fixes
+
+* improve URL handling where req.url is undefined or empty ([0bd8def](https://github.com/bent10/headless-route/commit/0bd8deff1c721d141d389f5934586b4cb36e13f5))
+
 ## @headless-route/vite [1.3.4](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.3...@headless-route/vite@1.3.4) (2024-04-24)
 
 
