@@ -1,3 +1,16 @@
+# headless-route [3.0.0](https://github.com/bent10/headless-route/compare/headless-route@2.5.0...headless-route@3.0.0) (2024-08-28)
+
+
+### Features
+
+* wildcard, unicode, and modifier changes ([17834ef](https://github.com/bent10/headless-route/commit/17834efbfd0db65767abeda2abfe3fae90c0a6df))
+
+
+### BREAKING CHANGES
+
+* Checkout [related
+release](https://github.com/pillarjs/path-to-regexp/releases/tag/v7.0.0)
+
 # headless-route [2.5.0](https://github.com/bent10/headless-route/compare/headless-route@2.4.0...headless-route@2.5.0) (2024-04-20)
 
 
