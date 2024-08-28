@@ -15,7 +15,7 @@ export function createRoutesSync(options: OptionsSync = {}): Route[] {
   const { dir = '.', cache } = options
   const cwd = process.cwd()
   const resolvedDir = dir.startsWith(cwd)
-    ? dir.replace(cwd, '').replace(/^[\\\/]+/, '') || '.'
+    ? dir.replace(cwd, '').replace(/^[/\\]+/, '') || '.'
     : dir
 
   if (cache && cacheRouteSync[dir]) {

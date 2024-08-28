@@ -8,10 +8,9 @@ import { extname } from 'node:path'
  * @returns An array of segments representing the path of the route relative to the root directory.
  */
 export function routeSegments(id: string, root = '') {
-  const fileExtension = extname(id)
   const routePath = id
     .replace(new RegExp(`^${escapeRegExp(root)}`), '')
-    .replace(new RegExp(`${escapeRegExp(fileExtension)}$`), '')
+    .replace(new RegExp(`${escapeRegExp(extname(id))}$`), '')
 
   return parseRoutePath(routePath)
 }
@@ -38,40 +37,53 @@ export function escapeRegExp(str: string) {
  */
 export function isDynamicRouteSegment(segment: string) {
   return (
+    isWildcard(segment) ||
     isNonPartialDynamicRouteSegment(segment) ||
     isPartialDynamicRouteSegment(segment)
   )
 }
 
 /**
- * Checks if a segment of a route path is a non-partial dynamic segment.
- * Non-partial dynamic segments are indicated by a leading colon (`:`) or dollar
- * sign (`$`) and not ending with a question mark (`?`).
+ * Determines if a route path segment is a wildcard segment. Wildcard
+ * segments are represented by `*` or end with `.*`.
  *
- * @param segment The segment of the route path to check.
- * @returns `true` if the segment is a non-partial dynamic segment, `false` otherwise.
+ * @param segment - The route path segment to check.
+ * @returns `true` if the segment is a wildcard segment,
+ *   `false` otherwise.
+ */
+function isWildcard(segment: string): boolean {
+  return segment === '*' || segment.endsWith('.*')
+}
+
+/**
+ * Determines if a route path segment is a non-partial dynamic segment.
+ * Non-partial dynamic segments start with `:` or `$` and do not end with
+ * `?`, `*`, or `+`.
+ *
+ * @param segment The route path segment to check.
+ * @returns `true` if it's a non-partial dynamic segment,
+ *   otherwise `false`.
  */
 function isNonPartialDynamicRouteSegment(segment: string) {
   return (
     (segment.startsWith(':') || segment.startsWith('$')) &&
-    !segment.endsWith('?')
+    !/[?*+]$/.test(segment)
   )
 }
 
 /**
- * Checks if a segment of a route path is a partial dynamic segment. Partial
- * dynamic segments are indicated by a leading colon (`:`) or dollar sign (`$`)
- * and ending with a question mark (`?`), or enclosed in square brackets
- * (`[]`).
+ * Determines if a route path segment is a partial dynamic segment. Partial
+ * dynamic segments are enclosed in `[]`, or start with `:`, `$` and end
+ * with `?`, `*`, or `+`.
  *
- * @param segment The segment of the route path to check.
- * @returns `true` if the segment is a partial dynamic segment, `false` otherwise.
+ * @param segment The route path segment to examine.
+ * @returns `true` if it's a partial dynamic segment, otherwise `false`.
  */
 function isPartialDynamicRouteSegment(segment: string) {
   return (
     (segment.startsWith('[') && segment.endsWith(']')) ||
     ((segment.startsWith(':') || segment.startsWith('$')) &&
-      segment.endsWith('?'))
+      /[?*+]$/.test(segment))
   )
 }
 
@@ -124,20 +136,21 @@ export function normalizeSegment(segment: string) {
 function getValidSegment(segment: string) {
   // segment may include file names ordered numerically (e.g., 01-foo, 02-bar, etc.),
   // used for organizing routes in a specific order.
-  const validSegment = segment.replace(/^\d+[\-\_]/, '')
+  const validSegment = segment.replace(/^\d+[-_]/, '')
 
   if (isNonPartialDynamicRouteSegment(validSegment)) {
     return `:${validSegment.slice(1)}`
   }
 
   if (isPartialDynamicRouteSegment(validSegment)) {
-    return `:${validSegment.slice(1, -1)}?`
+    const mod = /[*+]$/.test(validSegment) ? validSegment.slice(-1) : '?'
+    return `:${validSegment.slice(1, -1)}${mod}`
   }
 
   // handle unknown splats segment
-  if (validSegment === '*') {
-    return ':splats*'
-  }
+  // if (validSegment === '*') {
+  //   return ':splats*'
+  // }
 
   return validSegment
 }

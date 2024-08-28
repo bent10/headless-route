@@ -25,33 +25,29 @@ export async function visit(
     handler
   } = options
 
-  try {
-    const files: Dirent[] = await readdir(dir, { withFileTypes: true })
+  const files: Dirent[] = await readdir(dir, { withFileTypes: true })
 
-    await Promise.all(
-      files.map(async file => {
-        if (!(await filter(file))) return
+  await Promise.all(
+    files.map(async file => {
+      if (!(await filter(file))) return
 
-        const id = normalizePath(join(dir, file.name))
+      const id = normalizePath(join(dir, file.name))
 
-        if (file.isDirectory()) {
-          await visit({ ...options, dir: id }, routes)
-        } else {
-          const fileExtension = extname(id)
+      if (file.isDirectory()) {
+        await visit({ ...options, dir: id }, routes)
+      } else {
+        const fileExtension = extname(id)
 
-          if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
-            return
+        if (!isValidExtension(extensions, fileExtension) || isIgnored(id))
+          return
 
-          const route = createRoute(id, { root, urlSuffix, urlPrefix })
+        const route = createRoute(id, { root, urlSuffix, urlPrefix })
 
-          // call handler fn, useful to expand each route
-          await handler?.(route, root)
+        // call handler fn, useful to expand each route
+        await handler?.(route, root)
 
-          routes.push(route)
-        }
-      })
-    )
-  } catch (error) {
-    throw error
-  }
+        routes.push(route)
+      }
+    })
+  )
 }

@@ -60,12 +60,10 @@ export function createRoute(
   options: { root: string; urlPrefix?: string; urlSuffix?: string }
 ): Route {
   const { root, urlPrefix = '/', urlSuffix = '' } = options
-  const normalizedUrlPrefix =
-    urlPrefix === '' ? './' : urlPrefix.replace(/\/+$/g, '') + '/'
 
   const segments = routeSegments(id, root)
   const stem = segments.join('/')
-  const url = normalizedUrlPrefix + stem + urlSuffix
+  const url = constructUrl(segments, urlPrefix, urlSuffix)
   const index = url.endsWith('/index' + urlSuffix)
 
   const route: Route = { id, stem, url, index, isDynamic: false }
@@ -77,6 +75,27 @@ export function createRoute(
   }
 
   return route
+}
+
+// construct URL from segments
+function constructUrl(segments: string[], prefix: string, suffix: string) {
+  const normalizedPrefix = normalizeUrlPrefix(prefix)
+
+  return (
+    segments
+      .reduce((url, segment, index) => {
+        if (segment.startsWith(':') && /[?*+]$/.test(segment)) {
+          return url + `{/${segment.slice(0, -1)}}${segment.slice(-1)}`
+        }
+        return url + (index === 0 ? segment : `/${segment}`)
+      }, normalizedPrefix)
+      .replace(/^\/{\//, '{/') + suffix
+  )
+}
+
+// normalize URL prefix
+function normalizeUrlPrefix(prefix: string) {
+  return prefix ? `${prefix.replace(/\/+$/g, '')}/` : './'
 }
 
 /**
@@ -147,7 +166,7 @@ export function findRoute(requestUrl: string, routes: Route[]) {
 export function applyDynamicRouteProps(route: Route) {
   const regexp = pathToRegexp(route.url)
   const fnMatch = match(route.url, {
-    encode: encodeURI
+    encodePath: encodeURI
   })
   const fnCompile = compile(route.url, {
     encode: encodeURIComponent

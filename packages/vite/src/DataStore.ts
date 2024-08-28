@@ -56,11 +56,11 @@ export class DataStore<V = unknown> extends InMemoryStore<V> {
     const { dir, extensions, localDataDir, localDataSuffix } = this.config
     const exts = `(${extensions.map(e => e.replace(/^\./, '')).join('|')})`
 
-    const source = [`${dir.replace(/[\/\\]+$/, '')}/**/*.${exts}`]
+    const source = [`${dir.replace(/[/\\]+$/, '')}/**/*.${exts}`]
 
     if (localDataDir) {
       source.push(
-        `${localDataDir.replace(/[\/\\]+$/, '')}/**/*${localDataSuffix}.${exts}`
+        `${localDataDir.replace(/[/\\]+$/, '')}/**/*${localDataSuffix}.${exts}`
       )
     }
 
@@ -132,17 +132,13 @@ export class DataStore<V = unknown> extends InMemoryStore<V> {
    * @throws Error if an error occurs during data loading.
    */
   async init() {
-    try {
-      const datasources = this.datasources
+    const datasources = this.datasources
 
-      this.clear()
+    this.clear()
 
-      for (const id of datasources) {
-        const data = await this.load(id)
-        this.set(id, data)
-      }
-    } catch (error) {
-      throw error
+    for (const id of datasources) {
+      const data = await this.load(id)
+      this.set(id, data)
     }
   }
 

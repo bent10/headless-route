@@ -58,14 +58,17 @@ export function buildNavigation<T extends object = object>(
     const segments = route.stem.split('/').slice(1)
     const lastSegment = String(
       segments.length ? segments.pop() : route.stem
-    ).replace(/\-/g, ' ')
+    ).replace(/-/g, ' ')
     const text =
       lastSegment.slice(0, 1).toUpperCase() + lastSegment.slice(1).toLowerCase()
 
     if ('children' in route) {
-      segments.length
-        ? Object.assign(route, { id: route.stem.replace(/\//g, '-') })
-        : Object.assign(route, { type: 'group' })
+      Object.assign(
+        route,
+        segments.length
+          ? { id: route.stem.replace(/\//g, '-') }
+          : { type: 'group' }
+      )
     }
 
     Object.assign(route, { text }, navMeta[route.stem])

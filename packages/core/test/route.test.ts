@@ -72,7 +72,7 @@ it('should create a base route with absolute url prefix', () => {
 it('should create a base route with full url prefix', () => {
   const route = createRoute('pages/foo/bar', {
     root: 'pages',
-    urlPrefix: 'https://example.com'
+    urlPrefix: 'https://example.com/'
   })
 
   expect(route).toMatchInlineSnapshot(`
@@ -126,7 +126,7 @@ it('should create a dynamic route', () => {
 })
 
 it('should create optional dynamic routes', () => {
-  const files: string[] = ['pages/:a?/:b', 'pages/$c?/$d', 'pages/[e]/f']
+  const files: string[] = ['pages/:a?/:b', 'pages/$c+/$d*', 'pages/:e/[f]']
   const routes = files.map(file =>
     createRoute(file, { root: 'pages', urlSuffix: '.html' })
   )
@@ -138,21 +138,21 @@ it('should create optional dynamic routes', () => {
         "index": false,
         "isDynamic": true,
         "stem": ":a?/:b",
-        "url": "/:a?/:b.html",
+        "url": "{/:a}?/:b.html",
       },
       {
-        "id": "pages/$c?/$d",
+        "id": "pages/$c+/$d*",
         "index": false,
         "isDynamic": true,
-        "stem": ":c?/:d",
-        "url": "/:c?/:d.html",
+        "stem": ":c+/:d*",
+        "url": "{/:c}+{/:d}*.html",
       },
       {
-        "id": "pages/[e]/f",
+        "id": "pages/:e/[f]",
         "index": false,
         "isDynamic": true,
-        "stem": ":e?/f",
-        "url": "/:e?/f.html",
+        "stem": ":e/:f?",
+        "url": "/:e{/:f}?.html",
       },
     ]
   `)
@@ -262,25 +262,26 @@ it('should find an optional route from routes object based on the request URL', 
 it('should find a splats route from routes object based on the request URL', () => {
   const config = { root: 'pages' }
   const routes = [
-    // splat or "catchall" or "star" segments (zero or more params)
+    // wildcard route
     createRoute('pages/files/*.md', config),
-    // named splat segments (zero or more params)
+    // zero or more modifier
     createRoute('pages/foo/:ids*.md', config),
-    // required splat segments (one or more params)
+    // one or more modifier
     createRoute('pages/bar/:ids+.md', config)
   ]
 
-  // match splat segments
-  expect(findRoute('/files', routes)).toEqual(routes[0])
+  // match wildcard route
+  expect(findRoute('/files', routes)).toBeUndefined()
+  expect(findRoute('/files/', routes)).toEqual(routes[0])
   expect(findRoute('/files/a', routes)).toEqual(routes[0])
   expect(findRoute('/files/a/b', routes)).toEqual(routes[0])
   expect(findRoute('/files/a/b/123', routes)).toEqual(routes[0])
 
-  const splatRoute = findRoute('/files/a/b/123', routes)
-  if (splatRoute?.isDynamic) {
-    const params = splatRoute.matchParams('/files/a/b/123')
+  const wildcardRoute = findRoute('/files/a/b/123', routes)
+  if (wildcardRoute?.isDynamic) {
+    const params = wildcardRoute.matchParams('/files/a/b/123')
 
-    expect(params).toEqual({ splats: ['a', 'b', '123'] })
+    expect(params).toEqual({ '0': ['a', 'b', '123'] })
   }
 
   // match named splat segments

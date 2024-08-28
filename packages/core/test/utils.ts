@@ -20,9 +20,11 @@ export function loadDatafiles(route: Route, root: string) {
         const localData = loadFileSync(currSegment + datafile)
 
         Object.assign(context, localData)
-      } catch {}
+      } catch {
+        /* empty */
+      }
     })
   })
 
-  route.context = context
+  Object.assign(route, { context })
 }
