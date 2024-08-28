@@ -264,9 +264,9 @@ it('should find a splats route from routes object based on the request URL', () 
   const routes = [
     // wildcard route
     createRoute('pages/files/*.md', config),
-    // zero or more modifier
+    // zero or more parameters
     createRoute('pages/foo/:ids*.md', config),
-    // one or more modifier
+    // one or more parameters
     createRoute('pages/bar/:ids+.md', config)
   ]
 
@@ -284,7 +284,7 @@ it('should find a splats route from routes object based on the request URL', () 
     expect(params).toEqual({ '0': ['a', 'b', '123'] })
   }
 
-  // match named splat segments
+  // zero or more parameter matches
   expect(findRoute('/foo', routes)).toEqual(routes[1])
   expect(findRoute('/foo/a', routes)).toEqual(routes[1])
   expect(findRoute('/foo/a/b', routes)).toEqual(routes[1])
@@ -297,7 +297,7 @@ it('should find a splats route from routes object based on the request URL', () 
     expect(params).toEqual({ ids: ['a', 'b', '123'] })
   }
 
-  // match required splat segments
+  // one or more parameter matches
   expect(findRoute('/bar', routes)).toBeUndefined()
   expect(findRoute('/bar/a', routes)).toEqual(routes[2])
   expect(findRoute('/bar/a/b', routes)).toEqual(routes[2])

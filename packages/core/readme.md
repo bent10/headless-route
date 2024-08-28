@@ -304,13 +304,13 @@ const routes = await createRoutes({
 
 - 🚫 Avoid: `/users-:id.md` (partial paths should be avoided)
 - ✅ Prefer: `/users/:id.md` or `/users/$id.md`
-- ✅ Acceptable: `/users/:id?.md` or `/users/[id].md` (for optional segments)
+- ✅ Acceptable: `/users/:id?.md` or `/users/[id].md` (for optional parameters)
 - 🚫 Avoid: `/posts/:categories--:id.md` (partial paths should be avoided)
 - ✅ Prefer: `/posts/:categories/:id.md` or `/posts/$categories/$id.md`
-- ✅ Acceptable: `/posts/[lang]/categories.md` (for optional segments)
-- ✅ Acceptable: `/files/*.md` (for splat segments)
-- ✅ Acceptable: `/foo/:bar*.md` (for named splat segments)
-- ✅ Acceptable: `/foo/:bar+.md` (for required splat segments)
+- ✅ Acceptable: `/posts/[lang]/categories.md` (for optional parameters)
+- ✅ Acceptable: `/files/*.md` (for wildcard route)
+- ✅ Acceptable: `/foo/:bar*.md` (zero or more parameters)
+- ✅ Acceptable: `/foo/:bar+.md` (one or more parameters)
 
 ▸ Follow a consistent pattern in CRUD operations. Instead of naming files like `foo/$id.edit.tsx`, use `foo/$id/edit.tsx`:
 

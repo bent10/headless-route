@@ -147,10 +147,5 @@ function getValidSegment(segment: string) {
     return `:${validSegment.slice(1, -1)}${mod}`
   }
 
-  // handle unknown splats segment
-  // if (validSegment === '*') {
-  //   return ':splats*'
-  // }
-
   return validSegment
 }
