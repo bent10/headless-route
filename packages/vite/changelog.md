@@ -1,3 +1,24 @@
+# @headless-route/vite [2.0.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.5...@headless-route/vite@2.0.0) (2024-08-28)
+
+
+### Features
+
+* wildcard, unicode, and modifier changes ([17834ef](https://github.com/bent10/headless-route/commit/17834efbfd0db65767abeda2abfe3fae90c0a6df))
+
+
+### BREAKING CHANGES
+
+* Checkout [related
+release](https://github.com/pillarjs/path-to-regexp/releases/tag/v7.0.0)
+
+
+
+
+
+### Dependencies
+
+* **headless-route:** upgraded to 3.0.0
+
 ## @headless-route/vite [1.3.5](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.4...@headless-route/vite@1.3.5) (2024-04-25)
 
 
