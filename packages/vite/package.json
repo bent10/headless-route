@@ -42,7 +42,7 @@
   "dependencies": {
     "gray-matter": "4.0.3",
     "headless-route": "2.5.0",
-    "loadee": "3.1.1",
+    "loadee": "3.1.2",
     "set-value": "4.1.0",
     "youch": "3.3.3"
   },
