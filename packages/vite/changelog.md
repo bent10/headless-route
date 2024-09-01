@@ -1,3 +1,10 @@
+## @headless-route/vite [2.0.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@2.0.0...@headless-route/vite@2.0.1) (2024-09-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency loadee to v3.1.2 ([3e028cc](https://github.com/bent10/headless-route/commit/3e028ccdfbdddde93de5a25b9673fafd7898159f))
+
 # @headless-route/vite [2.0.0](https://github.com/bent10/headless-route/compare/@headless-route/vite@1.3.5...@headless-route/vite@2.0.0) (2024-08-28)
 
 
