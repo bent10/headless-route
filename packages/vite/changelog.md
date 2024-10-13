@@ -1,3 +1,10 @@
+## @headless-route/vite [2.0.2](https://github.com/bent10/headless-route/compare/@headless-route/vite@2.0.1...@headless-route/vite@2.0.2) (2024-10-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency youch to v3.3.4 ([0974247](https://github.com/bent10/headless-route/commit/097424797b8dc91f4676dc7d64086951ec1fc731))
+
 ## @headless-route/vite [2.0.1](https://github.com/bent10/headless-route/compare/@headless-route/vite@2.0.0...@headless-route/vite@2.0.1) (2024-09-01)
 
 
