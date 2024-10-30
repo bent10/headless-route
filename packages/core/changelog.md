@@ -1,3 +1,10 @@
+## headless-route [3.0.1](https://github.com/bent10/headless-route/compare/headless-route@3.0.0...headless-route@3.0.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* **deps:** bump `path-to-regexp` to `v8.2.0` ([9e5a106](https://github.com/bent10/headless-route/commit/9e5a1069f2083a356d81adf9f36672c535c1adc4))
+
 # headless-route [3.0.0](https://github.com/bent10/headless-route/compare/headless-route@2.5.0...headless-route@3.0.0) (2024-08-28)
 
 
