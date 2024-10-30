@@ -1,3 +1,13 @@
+## @headless-route/vite [2.0.3](https://github.com/bent10/headless-route/compare/@headless-route/vite@2.0.2...@headless-route/vite@2.0.3) (2024-10-30)
+
+
+
+
+
+### Dependencies
+
+* **headless-route:** upgraded to 3.0.1
+
 ## @headless-route/vite [2.0.2](https://github.com/bent10/headless-route/compare/@headless-route/vite@2.0.1...@headless-route/vite@2.0.2) (2024-10-13)
 
 
