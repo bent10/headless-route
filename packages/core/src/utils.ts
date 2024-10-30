@@ -153,7 +153,7 @@ export function findRoute(requestUrl: string, routes: Route[]) {
       return route.isMatch?.(requestUrl)
     }
 
-    const regexp = pathToRegexp(route.url)
+    const { regexp } = pathToRegexp(route.url)
     return regexp.test(normalizeSegment(requestUrl))
   })
 }
@@ -164,7 +164,7 @@ export function findRoute(requestUrl: string, routes: Route[]) {
  * @param route - The route object to which dynamic properties are applied.
  */
 export function applyDynamicRouteProps(route: Route) {
-  const regexp = pathToRegexp(route.url)
+  const { regexp } = pathToRegexp(route.url)
   const fnMatch = match(route.url, {
     encodePath: encodeURI
   })
